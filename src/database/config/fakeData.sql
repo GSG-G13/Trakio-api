@@ -26,7 +26,7 @@ INSERT INTO tasks (title, description, due_date, user_id, priority_id, section_i
     'FIRST-TASK', 'my first task description', '2023-07-2', 1, 1, 1
 );
 
-INSERT INTO user_tasks (user_id, task_id) VALUES (1, 1);
+
 
 INSERT INTO attachments (attach_s3, user_id, task_id) VALUES (
     'xxxxxxx', 1, 1
