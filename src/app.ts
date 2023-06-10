@@ -5,7 +5,7 @@ const app:Express = express();
 
 app.use([
   express.json(),
-  express.urlencoded({extended:false}),
+  express.urlencoded({ extended: false }),
   cookieParser(),
 ]);
 
