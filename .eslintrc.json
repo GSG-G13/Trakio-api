@@ -20,5 +20,5 @@
     "@typescript-eslint/no-explicit-any": "error",
     "import/extensions": "off"
   },
-  "ignorePatterns": ["**/__test__/*.ts"]
+  "ignorePatterns": ["**/__tests__/*.ts"]
 }
