@@ -6,7 +6,7 @@ const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {
   const { token } = req.cookies;
   if (!token) {
     req.userData = undefined;
-    next();
+    next(new CustomError(401, 'forbidden'));
     return;
   }
 
@@ -16,7 +16,7 @@ const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {
       next();
     })
     .catch(() => {
-      next(new CustomError(401, 'Invalid token'));
+      next(new CustomError(498, 'Invalid token'));
     });
 };
 
