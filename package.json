@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p .",
-    "start": "cross_env NODE_ENV='production' dist/index.js",
-    "dev": "cross_env NODE_ENV='development' nodemon src/index.ts",
+    "start": "NODE_ENV='production' node dist/index.js",
+    "dev": "NODE_ENV='development' nodemon src/index.ts",
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
