@@ -1,16 +1,18 @@
 import connection from '../config/connection';
+import Query from '../../interfaces/query'
 
-interface QueryResult {
-  exists: boolean;
-}
 
-const emailExists = async (email: string): Promise<boolean> => {
-  const query = {
+const emailExists = (email:string) => {
+  const query:Query = {
     text: 'SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)',
     values: [email],
   };
-  const result = await connection.query<QueryResult>(query);
-  return result.rows[0].exists;
+
+  return connection.query(query)
+    .then((result) => result.rows[0].exists)
+    .catch((error) => {
+      throw error;
+    });
 };
 
 export default emailExists;
