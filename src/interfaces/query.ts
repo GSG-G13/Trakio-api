@@ -3,5 +3,4 @@ interface Query {
     values: unknown[],
   }
 
-  export default Query;
-  
+export default Query;

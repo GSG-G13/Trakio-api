@@ -8,11 +8,7 @@ const emailExists = (email:string) => {
     values: [email],
   };
 
-  return connection.query(query)
-    .then((result) => result.rows[0].exists)
-    .catch((error) => {
-      throw error;
-    });
+  return connection.query(query);
 };
 
 export default emailExists;
