@@ -1,5 +1,5 @@
 import { Secret, verify, sign } from 'jsonwebtoken';
-import { } from 'dotenv/config';
+import { } from 'dotenv';
 
 const { SECRET_KEY } = process.env;
 
@@ -17,4 +17,4 @@ const signToken = (payload:object): Promise<string> => new Promise((resolve, rej
   });
 });
 
-export default { verifyToken, signToken };
+export { verifyToken, signToken };
