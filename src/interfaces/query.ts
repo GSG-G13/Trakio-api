@@ -1,6 +1,6 @@
 interface Query {
-  text: string,
-  values: unknown[],
-}
+    text: string,
+    values: unknown[],
+  }
 
 export default Query;
