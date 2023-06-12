@@ -1,4 +1,6 @@
-import { logout, loginController } from './auth';
+import { logout, loginController, signup } from './auth';
 import getProjects from './project';
 
-export { loginController, logout, getProjects };
+export {
+  loginController, logout, signup, getProjects,
+};

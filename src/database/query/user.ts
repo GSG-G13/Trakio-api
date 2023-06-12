@@ -17,4 +17,22 @@ const emailExists = (email:string) => {
   return connection.query(query);
 };
 
-export { emailExists, getUserData };
+const signupQuery = ({
+  name, email, password, phone,
+}: {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+}) => {
+  const userSql = {
+    text: `INSERT INTO users (name, email, password, phone)
+        VALUES ($1, $2, $3, $4)
+        RETURNING id, name, email, phone`,
+    values: [name, email, password, phone],
+  };
+
+  return connection.query(userSql);
+};
+
+export { emailExists, signupQuery, getUserData };
