@@ -1,13 +1,9 @@
 interface userData {
     id: string,
-    username: string,
+    name: string,
     email: string,
-    phone: string
+    phone: string,
+    password?: string
 }
 
-interface LoginRequest {
-    password: string;
-    email: string;
-}
-
-export { userData, LoginRequest };
+export default userData;
