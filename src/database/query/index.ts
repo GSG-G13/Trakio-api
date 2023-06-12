@@ -1,3 +1,5 @@
+import getProjects from './projects';
+
 import { getUserData } from './user';
 
-export default getUserData;
+export { getUserData, getProjects };

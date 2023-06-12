@@ -14,7 +14,6 @@ const emailExists = (email:string) => {
     text: 'SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)',
     values: [email],
   };
-
   return connection.query(query);
 };
 

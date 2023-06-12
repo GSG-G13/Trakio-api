@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
-import router from './routes';
+import router from './routers';
 
 const app:Express = express();
 
