@@ -31,9 +31,7 @@ const signup = (req: Request, res: Response): void => {
     .then((hash: string) => ({
       username, email, password: hash, phone,
     }))
-    .then(({
-      username, email, password, phone,
-    }) => signupQuery({
+    .then(() => signupQuery({
       username, email, password, phone,
     }))
     .then((data) => data.rows[0])
