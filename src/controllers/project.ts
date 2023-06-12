@@ -10,7 +10,7 @@ const getProjects = (req: TokenRequest, res: Response, next: NextFunction) => {
       if (data.rowCount > 0) {
         res.status(200).json({
           message: 'Show Projects Successfully',
-          data,
+          data: data.rows,
         });
       }
     })
