@@ -1,7 +1,6 @@
 import connection from '../config/connection';
 import Query from '../../interfaces/query'
 
-
 const emailExists = (email:string) => {
   const query:Query = {
     text: 'SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)',
@@ -10,27 +9,28 @@ const emailExists = (email:string) => {
 
   return connection.query(query);
 };
-const signupQuery = ({ username, email, password, phone }: {
+
+const signupQuery = ({
+  username, email, password, phone,
+}: {
   username: string;
   email: string;
   password: string;
   phone: string;
-}): Promise<any> => {
-  return emailExists(email)
-    .then((exists) => {
-      if (exists) {
-        // throw new Error('Email already exists');
-      }
-  
-      const userSql = {
-        text: `INSERT INTO users (name, email, password, phone)
+}) => emailExists(email)
+  .then((exists) => {
+    if (exists) {
+      // throw new Error('Email already exists');
+    }
+
+    const userSql = {
+      text: `INSERT INTO users (name, email, password, phone)
         VALUES ($1, $2, $3, $4)
         RETURNING id, username, email, phone`,
-        values: [username, email, password, phone],
-      };
+      values: [username, email, password, phone],
+    };
 
-      return connection.query(userSql);
-    })
-};
+    return connection.query(userSql);
+  });
 
-export  { emailExists, signupQuery};
+export { emailExists, signupQuery };
