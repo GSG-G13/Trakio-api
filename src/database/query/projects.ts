@@ -1,7 +1,7 @@
 import connection from '../config/connection';
 import Query from '../../interfaces/query';
 
-const getProjects = (userId: number) => {
+const getProjectsQuery = (userId: number) => {
   const sql: Query = {
     text: `SELECT p.title, p.description, p.created_at, pu.project_id, pu.user_id, r.role
             FROM projects p 
@@ -14,5 +14,12 @@ const getProjects = (userId: number) => {
   }
   return connection.query(sql);
 };
+const deleteProjectById = (projectId:number) => {
+  const query:Query = {
+    text: 'DELETE FROM projects WHERE id = $1',
+    values: [projectId],
+  };
 
-export default getProjects;
+  return connection.query(query);
+};
+export { getProjectsQuery, deleteProjectById };
