@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import getProjectsQuery from '../database/query/projects';
+import { getProjectsQuery } from '../database/query/projects';
 import { TokenRequest } from '../interfaces';
 import { CustomError } from '../helper';
 
