@@ -1,3 +1,3 @@
-import { signupSchema, loginSchema } from './schema';
+import { signupSchema, loginSchema, taskSchema } from './schema';
 
-export { signupSchema, loginSchema };
+export { signupSchema, loginSchema, taskSchema };

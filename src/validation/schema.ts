@@ -19,4 +19,8 @@ const loginSchema = Joi.object({
     .required(),
 });
 
-export { signupSchema, loginSchema };
+const taskSchema = Joi.object({
+  title: Joi.string().min(5).max(100).required(),
+  description: Joi.string().min(0).max(1000).required(),
+})
+export { signupSchema, loginSchema, taskSchema };
