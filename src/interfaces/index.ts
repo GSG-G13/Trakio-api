@@ -1,3 +1,7 @@
 import TokenRequest from './tokenRequest';
+import Query from './query';
+import userData from './userData';
 
-export default TokenRequest;
+export {
+  TokenRequest, Query, userData,
+};

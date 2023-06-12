@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
 import { verifyToken, CustomError } from '../helper';
-import TokenRequest from '../interfaces';
+import { TokenRequest } from '../interfaces';
 
 const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {
   const { token } = req.cookies;

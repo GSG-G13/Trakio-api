@@ -1,4 +1,3 @@
-import logout from './auth';
-import getProjects from './project';
+import { logout, loginController } from './auth';
 
-export { logout, getProjects };
+export { loginController, logout };
