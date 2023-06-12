@@ -8,7 +8,6 @@ const signupSchema = Joi.object({
     .required(),
   phone: Joi.string().min(7).max(10).required(),
   password: Joi.string().alphanum().min(8).max(50)
-    .regex(/^(?=.*[!@#$%^&*])(?=.{8,})(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
     .required(),
 });
 
@@ -16,7 +15,7 @@ const loginSchema = Joi.object({
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .regex(/^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/)
     .required(),
-  password: Joi.string().min(8).max(50).regex(/^(?=.*[!@#$%^&*])(?=.{8,})(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+  password: Joi.string().min(8).max(50)
     .required(),
 });
 
