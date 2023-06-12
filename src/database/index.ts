@@ -1,3 +1,3 @@
-import getUserData from './query';
+import { getUserData, addProjectQuery } from './query';
 
-export default getUserData;
+export { getUserData, addProjectQuery };

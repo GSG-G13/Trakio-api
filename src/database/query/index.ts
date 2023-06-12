@@ -1,5 +1,5 @@
-import getProjects from './projects';
+import { addProjectQuery, getProjectsQuery } from './projects';
 
 import { getUserData } from './user';
 
-export { getUserData, getProjects };
+export { getUserData, addProjectQuery, getProjectsQuery };
