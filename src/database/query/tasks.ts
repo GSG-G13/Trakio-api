@@ -20,4 +20,12 @@ const addTaskQuery = ({
   return connection.query(sql);
 }
 
-export default addTaskQuery;
+const getTasksByUserId = (userId:number) => {
+  const query:Query = {
+    text: 'SELECT * FROM tasks WHERE user_id = $1',
+    values: [userId],
+  };
+
+  return connection.query(query)
+};
+export { addTaskQuery, getTasksByUserId };
