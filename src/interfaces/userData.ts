@@ -1,8 +1,9 @@
 interface userData {
     id: string,
-    username: string,
+    name: string,
     email: string,
-    phone: string
+    phone: string,
+    password?: string
 }
 
 export default userData;

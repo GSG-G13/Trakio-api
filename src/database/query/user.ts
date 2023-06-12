@@ -1,14 +1,13 @@
 import connection from '../config/connection';
 import Query from '../../interfaces/query';
 
-const getUserData = (id: number) => {
+const getUserData = (email: string) => {
   const query: Query = {
-    text: 'SELECT name, email, phone FROM users WHERE id=$1;',
-    values: [id],
+    text: 'SELECT id, name, email, phone, password FROM users WHERE email=$1;',
+    values: [email],
   };
   return connection.query(query);
 };
-
 
 const emailExists = (email:string) => {
   const query:Query = {
