@@ -1,6 +1,6 @@
 import { Request } from 'express';
-import userData from './userData';
+import { userData as UserDataInterface } from './userData';
 
 export default interface TokenRequest extends Request {
-    userData: userData | undefined;
+    userData?: UserDataInterface;
 }
