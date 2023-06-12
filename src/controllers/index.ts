@@ -1,3 +1,4 @@
 import logout from './auth';
+import getProjects from './project';
 
-export default logout;
+export { logout, getProjects };

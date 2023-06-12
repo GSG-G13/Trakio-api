@@ -5,7 +5,6 @@ import TokenRequest from '../interfaces';
 const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {
   const { token } = req.cookies;
   if (!token) {
-    req.userData = undefined;
     next(new CustomError(401, 'forbidden'));
     return;
   }
