@@ -16,7 +16,7 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
   loginSchema.validateAsync({ password, email })
     .then((data) => getUserData(data.email))
     .then(({ rows }) => {
-      if (rows.length <= 0) throw new CustomError(400, 'Please enter correct password!');
+      if (rows.length <= 0) res.send('wrong email');
       userInfo = {
         id: rows[0].id, name: rows[0].name, email: rows[0].email, phone: rows[0].phone,
       };
@@ -24,7 +24,9 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
     })
     .then((isMatch) => {
       if (!isMatch) throw new CustomError(401, 'Please enter correct password');
-      return signToken({ email, id: userInfo.id, username: userInfo });
+      return signToken({
+        email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
+      });
     })
     .then((token) => res.cookie('token', token).json({
       message: 'Logged In Successfully',
