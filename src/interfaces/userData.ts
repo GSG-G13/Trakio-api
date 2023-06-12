@@ -5,4 +5,9 @@ interface userData {
     phone: string
 }
 
-export default userData;
+interface LoginRequest {
+    password: string;
+    email: string;
+}
+
+export { userData, LoginRequest };

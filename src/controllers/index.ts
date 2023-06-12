@@ -1,3 +1,3 @@
-import logout from './auth';
+import { logout, loginController } from './auth';
 
-export default logout;
+export { loginController, logout };
