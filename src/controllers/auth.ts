@@ -77,7 +77,13 @@ const signup = (req: Request, res: Response, next: NextFunction): void => {
       message: 'Created successfully',
       data: [{ name, email, phone }],
     }))
-    .catch(() => next(new CustomError(500, 'server error')));
+    .catch((err: CustomError | joiInterface) => {
+      if ('isJoi' in err) {
+        next(new CustomError(406, err.details[0].message));
+      } else {
+        next(new CustomError(500, 'server error'));
+      }
+    });
 };
 
 export { loginController, logout, signup };
