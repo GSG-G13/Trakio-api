@@ -1,5 +1,11 @@
-import getProjects from './projects';
-
+import { getProjectsQuery, deleteProjectById } from './projects';
+import { addTaskQuery, deleteTaskByIdQuery } from './tasks';
 import { getUserData } from './user';
 
-export { getUserData, getProjects };
+export {
+  getUserData,
+  getProjectsQuery,
+  deleteProjectById,
+  addTaskQuery,
+  deleteTaskByIdQuery,
+};
