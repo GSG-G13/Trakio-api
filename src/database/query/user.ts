@@ -19,9 +19,9 @@ const emailExists = (email:string) => {
 };
 
 const signupQuery = ({
-  username, email, password, phone,
+  name, email, password, phone,
 }: {
-  username: string;
+  name: string;
   email: string;
   password: string;
   phone: string;
@@ -29,8 +29,8 @@ const signupQuery = ({
   const userSql = {
     text: `INSERT INTO users (name, email, password, phone)
         VALUES ($1, $2, $3, $4)
-        RETURNING id, username, email, phone`,
-    values: [username, email, password, phone],
+        RETURNING id, name, email, phone`,
+    values: [name, email, password, phone],
   };
 
   return connection.query(userSql);
