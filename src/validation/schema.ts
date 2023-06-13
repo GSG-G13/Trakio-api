@@ -22,5 +22,9 @@ const loginSchema = Joi.object({
 const taskSchema = Joi.object({
   title: Joi.string().min(5).max(100).required(),
   description: Joi.string().min(0).max(1000).required(),
+  projectId: Joi.number().required(),
+  sectionId: Joi.number().required(),
+  dueDate: Joi.date().required(),
+  priorityId: Joi.number().required(),
 })
 export { signupSchema, loginSchema, taskSchema };

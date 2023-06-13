@@ -1,19 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
+import { QueryResult } from 'pg';
 import { addTaskQuery } from '../database/query/tasks';
 import { taskSchema } from '../validation';
 import { CustomError } from '../helper';
 
+interface taskInterface{
+  title:string,
+  description:string,
+  projectId: number,
+  sectionId: number,
+  dueDate: Date,
+  priorityId:number,
+}
+
 const addTask = (req: Request, res: Response, next: NextFunction) => {
   const {
     title, description, projectId, sectionId, dueDate, priorityId,
-  }: {
-    title:string,
-    description:string,
-    projectId: number,
-    sectionId: number,
-    dueDate: Date,
-    priorityId:number,
-  } = req.body;
+  }: taskInterface = req.body;
 
   taskSchema.validateAsync({
     title,
@@ -24,17 +27,16 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
     priorityId,
   }, { abortEarly: false })
     .then((data) => addTaskQuery(data))
-    .then(() => {
+    .then((data: QueryResult) => {
+      const taskData = data.rows[0] as taskInterface;
       res.status(201).json({
         message: 'Task Created Successfully',
         data: [
-          {
-            title, description, priorityId, projectId, sectionId, dueDate,
-          },
+          taskData,
         ],
       })
     })
-    .catch(() => next(new CustomError(500, 'Server Error')))
+    .catch(() => next(new CustomError(500, 'server error')))
 };
 
 export default addTask;
