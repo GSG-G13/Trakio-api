@@ -1,11 +1,10 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { loginSchema } from '../validation';
-import { getUserData } from '../database/query/user';
+import { getUserData, signupQuery, emailExists } from '../database/query/user';
 import { CustomError, signToken } from '../helper';
 import { TokenRequest, userData } from '../interfaces';
 import { signupSchema } from '../validation/schema';
-import { signupQuery, emailExists } from '../database/query/user';
 
 const loginController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const { body: { password, email } } = req;
