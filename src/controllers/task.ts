@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import addTaskQuery from '../database/query/tasks';
+import { addTaskQuery } from '../database/query/tasks';
 import { taskSchema } from '../validation';
 import { CustomError } from '../helper';
 

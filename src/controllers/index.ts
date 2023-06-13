@@ -1,7 +1,7 @@
 import { logout, loginController, signup } from './auth';
-import getProjects from './project';
+import { getProjects, deleteProject } from './project';
 import addTask from './task';
 
 export {
-  loginController, logout, signup, getProjects, addTask,
+  loginController, logout, signup, getProjects, deleteProject, addTask,
 };
