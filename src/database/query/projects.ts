@@ -25,14 +25,7 @@ const deleteProjectById = (projectId:number) => {
 
 const getProjectByProjectIDQuery = (projectID: number) => {
   const query:Query = {
-    text: ` SELECT p.id AS project_id, p.title AS title, p.description AS description, p.created_at AS created_at,u.id AS user_id, u.name AS name, u.email AS email, u.phone AS phone, r.role AS role 
-            FROM projects p JOIN project_users pu
-            ON p.id = pu.project_id 
-            JOIN users u 
-            ON pu.user_id = u.id
-            JOIN roles r
-            ON r.id = pu.role_id
-            WHERE p.id = $1`,
+    text: 'SELECT * FROM projects WHERE id = $1',
     values: [projectID],
   }
 
