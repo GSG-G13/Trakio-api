@@ -1,7 +1,7 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { loginSchema } from '../validation';
-import { getUserData, signupQuery, emailExists } from '../database/query/user';
+import { getUserData, signupQuery, emailExists } from '../database/query';
 import { CustomError, signToken } from '../helper';
 import { TokenRequest, joiInterface, userData } from '../interfaces';
 import { signupSchema } from '../validation/schema';
@@ -24,6 +24,7 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
       return compare(password, rows[0].password);
     })
     .then((isMatch) => {
+      console.log('nada was right');
       if (!isMatch) next(new CustomError(406, 'Please enter correct password'));
       return signToken({
         email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
@@ -45,7 +46,6 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
 const logout = (req: Request, res: Response) => {
   res.clearCookie('token').json({ message: 'Logged Out Successfully' });
 };
-// const hashPassword = (userPassword: string): Promise<string> => bcrypt.hash(userPassword, 10);
 
 const signup = (req: Request, res: Response, next: NextFunction): void => {
   const {
