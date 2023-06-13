@@ -28,4 +28,13 @@ const getTasksByUserId = (userId:number) => {
 
   return connection.query(query)
 };
-export { addTaskQuery, getTasksByUserId };
+
+const deleteTaskByIdQuery = (taskId: number) => {
+  const sql: Query = {
+    text: 'DELETE FROM tasks WHERE id = $1',
+    values: [taskId],
+  }
+  return connection.query(sql);
+}
+
+export { addTaskQuery, deleteTaskByIdQuery, getTasksByUserId };
