@@ -22,4 +22,14 @@ const deleteProjectById = (projectId:number) => {
 
   return connection.query(query);
 };
-export { getProjectsQuery, deleteProjectById };
+
+const getProjectByProjectIDQuery = (projectID: number) => {
+  const query:Query = {
+    text: 'SELECT * FROM projects WHERE id = $1',
+    values: [projectID],
+  }
+
+  return connection.query(query)
+}
+
+export { getProjectsQuery, deleteProjectById, getProjectByProjectIDQuery };
