@@ -20,4 +20,12 @@ const addTaskQuery = ({
   return connection.query(sql);
 }
 
-export default addTaskQuery;
+const deleteTaskByIdQuery = (taskId: number) => {
+  const sql: Query = {
+    text: 'DELETE FROM tasks WHERE id = $1',
+    values: [taskId],
+  }
+  return connection.query(sql);
+}
+
+export { addTaskQuery, deleteTaskByIdQuery };
