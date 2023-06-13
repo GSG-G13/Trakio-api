@@ -1,3 +1,3 @@
-import getUserData from './query';
+import { getUserData } from './query';
 
 export default getUserData;
