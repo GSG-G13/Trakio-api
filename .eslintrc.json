@@ -19,7 +19,8 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "error",
     "import/extensions": "off",
-    "semi": "off"
+    "semi": "off",
+    "linebreak-style": "off"
   },
   "ignorePatterns": ["**/__tests__/*.ts"]
 }
