@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import { addProjectQuery, addProjectUserQuery, getProjectsQuery } from '../database/query/projects';
-import { TokenRequest, ProjectData, ProjectDetailsInterface, projectDataDetails } from '../interfaces';
+import { TokenRequest, ProjectData, projectDataDetails } from '../interfaces';
 import { CustomError } from '../helper';
 import { projectSchema } from '../validation';
 
@@ -13,11 +13,14 @@ const addProjectController = (req: TokenRequest, res: Response, next: NextFuncti
   projectSchema.validateAsync({ title, description } as ProjectData)
     .then((data: ProjectData) => addProjectQuery(data.title, data.description))
     .then((data: QueryResult) => {
+      const project:ProjectData = data.rows[0];
       addProjectUserQuery(+userId!, data.rows[0].id, 1)
+      return project;
     })
-    .then(() => {
+    .then((project:ProjectData) => {
       res.status(201).json({
         message: 'New Project added Successfully',
+        data: project,
       })
     })
     .catch(() => next(new CustomError(500, 'server Error')));
