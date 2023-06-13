@@ -24,7 +24,6 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
       return compare(password, rows[0].password);
     })
     .then((isMatch) => {
-      console.log('nada was right');
       if (!isMatch) next(new CustomError(406, 'Please enter correct password'));
       return signToken({
         email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
