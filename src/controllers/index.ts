@@ -1,7 +1,6 @@
 import { logout, loginController, signup } from './auth';
-import getProjects from './project';
-import deleteTaskById from './task';
+import { getProjects, deleteProject } from './project';
 
 export {
-  loginController, logout, signup, getProjects, deleteTaskById,
+  loginController, logout, signup, getProjects, deleteProject,
 };

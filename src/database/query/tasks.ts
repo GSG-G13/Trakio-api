@@ -20,6 +20,15 @@ const addTaskQuery = ({
   return connection.query(sql);
 }
 
+const getTasksByUserId = (userId:number) => {
+  const query:Query = {
+    text: 'SELECT * FROM tasks WHERE user_id = $1',
+    values: [userId],
+  };
+
+  return connection.query(query)
+};
+
 const deleteTaskByIdQuery = (taskId: number) => {
   const sql: Query = {
     text: 'DELETE FROM tasks WHERE id = $1',
@@ -28,4 +37,4 @@ const deleteTaskByIdQuery = (taskId: number) => {
   return connection.query(sql);
 }
 
-export { addTaskQuery, deleteTaskByIdQuery };
+export { addTaskQuery, deleteTaskByIdQuery, getTasksByUserId };
