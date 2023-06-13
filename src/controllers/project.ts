@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { getProjectsQuery } from '../database/query/projects';
+import { getProjectsQuery, deleteProjectById } from '../database/query/projects';
 import { TokenRequest } from '../interfaces';
 import { CustomError } from '../helper';
 
@@ -16,5 +16,18 @@ const getProjects = (req: TokenRequest, res: Response, next: NextFunction) => {
     })
     .catch(() => next(new CustomError(500, 'Server Error')));
 };
+const deleteProject = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const { projectId } = req.params;
 
-export default getProjects;
+  deleteProjectById(+projectId)
+    .then(() => {
+      res.status(200).json({
+        message: 'Project deleted successfully',
+      });
+    })
+    .catch(() => {
+      next(new CustomError(500, 'Server Error'));
+    });
+};
+
+export { getProjects, deleteProject };
