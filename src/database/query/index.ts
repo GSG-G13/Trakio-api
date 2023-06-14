@@ -16,6 +16,7 @@ import {
   emailExists,
   signupQuery,
 } from './user';
+import getSectionsQuery from './section';
 
 export {
   addProjectQuery,
@@ -30,4 +31,5 @@ export {
   emailExists,
   signupQuery,
   getTaskByProjectAndSection,
+  getSectionsQuery,
 };
