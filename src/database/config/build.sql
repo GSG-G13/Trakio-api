@@ -54,8 +54,6 @@ CREATE TABLE tasks(
     section_id INTEGER REFERENCES sections(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE attachments(
     id SERIAL PRIMARY KEY ,
     attach_s3 TEXT NOT NULL,

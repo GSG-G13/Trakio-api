@@ -1,7 +1,7 @@
 import TokenRequest from './tokenRequest';
 import Query from './query';
 import userData from './userData';
-import { ProjectData, ProjectDetailsInterface, projectDataDetails } from './projectData';
+import { ProjectData, ProjectDetailsInterface } from './projectData';
 import joiInterface from './joiInterface';
 
 export {
@@ -10,6 +10,5 @@ export {
   userData,
   ProjectData,
   ProjectDetailsInterface,
-  projectDataDetails,
   joiInterface,
 };
