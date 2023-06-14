@@ -1,5 +1,5 @@
 import { getProjectsQuery, deleteProjectById, getProjectByProjectIDQuery } from './projects';
-import { addTaskQuery, deleteTaskByIdQuery } from './tasks';
+import { addTaskQuery, deleteTaskByIdQuery, getTasksByUserId } from './tasks';
 import { getUserData, signupQuery, emailExists } from './user';
 
 export {
@@ -11,4 +11,5 @@ export {
   getProjectByProjectIDQuery,
   signupQuery,
   emailExists,
+  getTasksByUserId,
 };

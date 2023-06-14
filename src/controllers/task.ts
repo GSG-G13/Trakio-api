@@ -1,21 +1,21 @@
 import { log } from 'console';
-import { Response } from 'express';
+import { Response, NextFunction } from 'express';
 import { CustomError } from '../helper';
-import { getTasksByUserId } from '../database/query/tasks';
+import { getTasksByUserId } from '../database/query';
 import { TokenRequest } from '../interfaces';
 
-const getTasks = (req: TokenRequest, res: Response): void => {
+const getTasks = (req: TokenRequest, res: Response, next: NextFunction): void => {
   const userId = req.userData?.id;
   log(userId);
   getTasksByUserId(+userId!)
     .then((tasks) => {
       res.status(200).json({
         message: 'Tasks retrieved successfully',
-        data: tasks,
+        data: tasks.rows,
       });
     })
     .catch(() => {
-      throw new CustomError(500, 'Server Error');
+      next(new CustomError(500, 'server error'));
     });
 };
 
