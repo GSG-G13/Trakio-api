@@ -46,13 +46,14 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const editTaskController = (req: Request, res: Response, next: NextFunction) => {
-  const taskId = req.query.task_id;
-  console.log(taskId);
+  const taskId = +req.query.task_id!;
+
   const {
     title,
     description,
     projectId,
     priorityId,
+    dueDate,
     sectionId,
   } = req.body as TaskInterface;
 
@@ -61,10 +62,15 @@ const editTaskController = (req: Request, res: Response, next: NextFunction) => 
     description,
     projectId,
     sectionId,
+    dueDate,
     priorityId,
   })
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error))
+    .then((updatedTask) => editTaskQuery({ id: taskId, ...updatedTask }))
+    .then((data) => res.json({
+      message: 'Task Updated Successfully',
+      data: data.rows[0],
+    }))
+    .catch(() => next(new CustomError(500, 'server Error')))
 };
 
 const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
