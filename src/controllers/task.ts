@@ -39,11 +39,13 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
     })
     .catch(() => next(new CustomError(500, 'server error')))
 };
+
 const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { taskId } = req.params;
-  deleteTaskByIdQuery(+taskId)
+  const { taskId } = req.query;
+
+  deleteTaskByIdQuery(+taskId!)
     .then(() => {
-      res.status(204).json({
+      res.status(200).json({
         message: 'Task Deleted successfully',
       })
     })
