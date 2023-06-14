@@ -1,5 +1,5 @@
 import connection from '../config/connection';
-import { Query } from '../../interfaces';
+import { Query, Task } from '../../interfaces';
 
 const addTaskQuery = ({
   title, description, priorityId, projectId, sectionId, dueDate,
@@ -29,6 +29,28 @@ const getTasksByUserId = (userId:number) => {
   return connection.query(query)
 };
 
+const editTaskQuery = (task: Task) => {
+  const sql = {
+    text: `UPDATE tasks 
+          SET title = $2, 
+          description = $3, 
+          project_id = $4,
+          priority_id = (SELECT id FROM priorities WHERE priority = $5),
+          section_id = (SELECT id FROM sections WHERE section = $6)
+          WHERE id = $1
+          RETURNING *`,
+    values: [
+      task.id,
+      task.title,
+      task.description,
+      task.project_id,
+      task.priority,
+      task.section_id,
+    ],
+  };
+  return connection.query(sql);
+};
+
 const deleteTaskByIdQuery = (taskId: number) => {
   const sql: Query = {
     text: 'DELETE FROM tasks WHERE id = $1',
@@ -40,5 +62,6 @@ const deleteTaskByIdQuery = (taskId: number) => {
 export {
   addTaskQuery,
   getTasksByUserId,
+  editTaskQuery,
   deleteTaskByIdQuery,
 };
