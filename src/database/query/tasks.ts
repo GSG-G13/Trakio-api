@@ -37,7 +37,7 @@ const deleteTaskByIdQuery = (taskId: number) => {
   return connection.query(sql);
 };
 
-const getTaskByProjectAndSection = (projectId: number, sectionId: number) => {
+const getTaskByProjectAndSectionQuery = (projectId: number, sectionId: number) => {
   const query:Query = {
     text: `SELECT t.id, t.title, t.description, pr.priority, s.section, p.title, t.created_at
     FROM tasks t JOIN projects p
@@ -56,5 +56,5 @@ export {
   addTaskQuery,
   getTasksByUserId,
   deleteTaskByIdQuery,
-  getTaskByProjectAndSection,
+  getTaskByProjectAndSectionQuery,
 };
