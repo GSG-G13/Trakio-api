@@ -4,12 +4,12 @@ import { Query } from '../../interfaces';
 const addTaskQuery = ({
   title, description, priorityId, projectId, sectionId, dueDate,
 }: {
-    title: string,
-    description: string,
-    priorityId: number,
-    projectId: number,
-    sectionId: number,
-    dueDate: string,
+  title: string,
+  description: string,
+  priorityId: number,
+  projectId: number,
+  sectionId: number,
+  dueDate: string,
 }) => {
   const sql: Query = {
     text: `INSERT INTO tasks (title, description, priority_id, project_id, section_id, due_date)
@@ -18,7 +18,7 @@ const addTaskQuery = ({
     values: [title, description, priorityId, projectId, sectionId, dueDate],
   };
   return connection.query(sql);
-}
+};
 
 const getTasksByUserId = (userId:number) => {
   const query:Query = {
@@ -35,6 +35,10 @@ const deleteTaskByIdQuery = (taskId: number) => {
     values: [taskId],
   }
   return connection.query(sql);
-}
+};
 
-export { addTaskQuery, deleteTaskByIdQuery, getTasksByUserId };
+export {
+  addTaskQuery,
+  getTasksByUserId,
+  deleteTaskByIdQuery,
+};
