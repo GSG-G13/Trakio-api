@@ -18,7 +18,8 @@ const addProjectUserQuery = (userId: number, projectId: number, roleId: number) 
   }
 
   return connection.query(sql);
-}
+};
+
 const getProjectsQuery = (userId: number) => {
   const sql: Query = {
     text: `SELECT p.title, p.description, p.created_at, pu.project_id, pu.user_id, r.role
@@ -33,6 +34,15 @@ const getProjectsQuery = (userId: number) => {
   return connection.query(sql);
 };
 
+const getProjectByProjectIDQuery = (projectID: number) => {
+  const query: Query = {
+    text: 'SELECT * FROM projects WHERE id = $1',
+    values: [projectID],
+  }
+
+  return connection.query(query)
+};
+
 const deleteProjectById = (projectId:number) => {
   const query:Query = {
     text: 'DELETE FROM projects WHERE id = $1',
@@ -42,19 +52,10 @@ const deleteProjectById = (projectId:number) => {
   return connection.query(query);
 };
 
-const getProjectByProjectIDQuery = (projectID: number) => {
-  const query:Query = {
-    text: 'SELECT * FROM projects WHERE id = $1',
-    values: [projectID],
-  }
-
-  return connection.query(query)
-}
-
 export {
-  getProjectsQuery,
-  deleteProjectById,
-  getProjectByProjectIDQuery,
-  addProjectUserQuery,
   addProjectQuery,
+  addProjectUserQuery,
+  getProjectsQuery,
+  getProjectByProjectIDQuery,
+  deleteProjectById,
 };
