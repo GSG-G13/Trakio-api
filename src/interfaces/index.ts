@@ -3,7 +3,7 @@ import Query from './query';
 import userData from './userData';
 import { ProjectData, ProjectDetailsInterface } from './projectData';
 import joiInterface from './joiInterface';
-import Task from './task';
+import TaskInterface from './task';
 
 export {
   TokenRequest,
@@ -12,5 +12,5 @@ export {
   ProjectData,
   ProjectDetailsInterface,
   joiInterface,
-  Task,
+  TaskInterface,
 };

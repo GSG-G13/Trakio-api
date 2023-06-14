@@ -1,10 +1,11 @@
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  project_id: number;
-  priority: string;
-  section_id: number;
+interface TaskInterface{
+  id:number,
+  title:string,
+  description:string,
+  projectId: number,
+  sectionId: number,
+  dueDate: Date,
+  priorityId:number,
 }
 
-export default Task;
+export default TaskInterface;

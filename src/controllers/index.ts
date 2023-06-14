@@ -5,17 +5,23 @@ import {
   getProjectByProjectId,
   addProjectController,
 } from './project';
-import { addTask, deleteTaskById, getTasks } from './task';
+import {
+  addTask,
+  getTasks,
+  editTaskController,
+  deleteTaskById,
+} from './task';
 
 export {
   loginController,
   logout,
   signup,
   getProjects,
+  getProjectByProjectId,
+  addProjectController,
   deleteProject,
   addTask,
   getTasks,
-  getProjectByProjectId,
+  editTaskController,
   deleteTaskById,
-  addProjectController,
 };
