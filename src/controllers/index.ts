@@ -6,6 +6,7 @@ import {
   addProjectController,
 } from './project';
 import { addTask, deleteTaskById, getTasks } from './task';
+import getSections from './section';
 
 export {
   loginController,
@@ -18,4 +19,5 @@ export {
   getProjectByProjectId,
   deleteTaskById,
   addProjectController,
+  getSections,
 };
