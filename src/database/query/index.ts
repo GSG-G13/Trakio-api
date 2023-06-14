@@ -15,6 +15,7 @@ import {
   emailExists,
   signupQuery,
 } from './user';
+import getSectionsQuery from './section';
 
 export {
   addProjectQuery,
@@ -28,4 +29,5 @@ export {
   getUserData,
   emailExists,
   signupQuery,
+  getSectionsQuery,
 };
