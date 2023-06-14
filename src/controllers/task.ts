@@ -1,9 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
-import { addTaskQuery, deleteTaskByIdQuery } from '../database/query';
+import { addTaskQuery, getTasksByUserId, deleteTaskByIdQuery } from '../database/query';
 import { TokenRequest } from '../interfaces';
-import { CustomError } from '../helper';
 import { taskSchema } from '../validation';
+import { CustomError } from '../helper';
+
+const getTasks = (req: TokenRequest, res: Response, next: NextFunction): void => {
+  const userId = req.userData?.id;
+  getTasksByUserId(+userId!)
+    .then((tasks) => {
+      res.status(200).json({
+        message: 'Tasks retrieved successfully',
+        data: tasks.rows,
+      });
+    })
+    .catch(() => {
+      next(new CustomError(500, 'server error'));
+    });
+};
 
 interface taskInterface{
   title:string,
@@ -52,4 +66,4 @@ const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) =>
     .catch(() => next(new CustomError(500, 'Server Error')));
 }
 
-export { addTask, deleteTaskById };
+export { addTask, deleteTaskById, getTasks };

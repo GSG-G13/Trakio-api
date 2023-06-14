@@ -35,4 +35,8 @@ const signupQuery = ({
   return connection.query(userSql);
 };
 
-export { emailExists, signupQuery, getUserData };
+export {
+  getUserData,
+  emailExists,
+  signupQuery,
+};
