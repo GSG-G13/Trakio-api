@@ -11,6 +11,7 @@ import {
   editTaskController,
   deleteTaskById,
 } from './task';
+import getSections from './section';
 
 export {
   loginController,
@@ -24,4 +25,5 @@ export {
   getTasks,
   editTaskController,
   deleteTaskById,
+  getSections,
 };

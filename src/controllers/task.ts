@@ -45,7 +45,7 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
     .catch(() => next(new CustomError(500, 'server error')))
 };
 
-const editTaskController = (req: Request, res: Response, next: NextFunction) => {
+const editTaskController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const taskId = +req.query.task_id!;
 
   const {
@@ -66,7 +66,7 @@ const editTaskController = (req: Request, res: Response, next: NextFunction) => 
     priorityId,
   })
     .then((updatedTask) => editTaskQuery({ id: taskId, ...updatedTask }))
-    .then((data) => res.json({
+    .then((data:QueryResult) => res.json({
       message: 'Task Updated Successfully',
       data: data.rows,
     }))

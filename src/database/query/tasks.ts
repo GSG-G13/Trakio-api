@@ -59,9 +59,25 @@ const deleteTaskByIdQuery = (taskId: number) => {
   return connection.query(sql);
 };
 
+const getTaskByProjectAndSection = (projectId: number, sectionId: number) => {
+  const query:Query = {
+    text: `SELECT t.id, t.title, t.description, pr.priority, s.section, p.title, t.created_at
+    FROM tasks t JOIN projects p
+    ON t.project_id = p.id
+    JOIN sections s
+    ON t.section_id = s.id
+    JOIN priorities pr
+    ON t.priority_id = pr.id
+    WHERE p.id = $1 AND s.id = $2`,
+    values: [projectId, sectionId],
+  }
+  return connection.query(query)
+}
+
 export {
   addTaskQuery,
   getTasksByUserId,
   editTaskQuery,
   deleteTaskByIdQuery,
+  getTaskByProjectAndSection,
 };

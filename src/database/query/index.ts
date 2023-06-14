@@ -10,12 +10,14 @@ import {
   getTasksByUserId,
   editTaskQuery,
   deleteTaskByIdQuery,
+  getTaskByProjectAndSection,
 } from './tasks';
 import {
   getUserData,
   emailExists,
   signupQuery,
 } from './user';
+import getSectionsQuery from './section';
 
 export {
   addProjectQuery,
@@ -30,4 +32,6 @@ export {
   getUserData,
   emailExists,
   signupQuery,
+  getTaskByProjectAndSection,
+  getSectionsQuery,
 };
