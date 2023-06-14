@@ -1,4 +1,5 @@
 import authCheck from './checkAuth';
 import errHandler from './serverError';
+import clientError from './clientError';
 
-export { authCheck, errHandler }
+export { authCheck, errHandler, clientError }
