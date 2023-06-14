@@ -68,7 +68,7 @@ const editTaskController = (req: Request, res: Response, next: NextFunction) => 
     .then((updatedTask) => editTaskQuery({ id: taskId, ...updatedTask }))
     .then((data) => res.json({
       message: 'Task Updated Successfully',
-      data: data.rows[0],
+      data: data.rows,
     }))
     .catch(() => next(new CustomError(500, 'server Error')))
 };
