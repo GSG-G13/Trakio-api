@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
-import { getTasksByUserId } from '../database/query';
+import { addTaskQuery, getTasksByUserId, deleteTaskByIdQuery } from '../database/query';
 import { TokenRequest } from '../interfaces';
-import { addTaskQuery } from '../database/query/tasks';
 import { taskSchema } from '../validation';
 import { CustomError } from '../helper';
 
@@ -55,4 +54,16 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
     .catch(() => next(new CustomError(500, 'server error')))
 };
 
-export { addTask, getTasks };
+const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const { taskId } = req.query;
+
+  deleteTaskByIdQuery(+taskId!)
+    .then(() => {
+      res.status(200).json({
+        message: 'Task Deleted successfully',
+      })
+    })
+    .catch(() => next(new CustomError(500, 'Server Error')));
+}
+
+export { addTask, deleteTaskById, getTasks };
