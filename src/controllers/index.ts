@@ -10,7 +10,9 @@ import {
   getTasks,
   editTaskController,
   deleteTaskById,
+  getTasksByProjectAndSection,
 } from './task';
+
 import getSections from './section';
 
 export {
@@ -25,5 +27,6 @@ export {
   getTasks,
   editTaskController,
   deleteTaskById,
+  getTasksByProjectAndSection,
   getSections,
 };

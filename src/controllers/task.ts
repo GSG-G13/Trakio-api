@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
-import { addTaskQuery, getTasksByUserId, deleteTaskByIdQuery, editTaskQuery } from '../database/query';
+import {
+  addTaskQuery,
+  getTasksByUserId,
+  deleteTaskByIdQuery,
+  editTaskQuery,
+  getTaskByProjectAndSectionQuery,
+} from '../database/query';
 import { TokenRequest, TaskInterface } from '../interfaces';
 import { taskSchema } from '../validation';
 import { CustomError } from '../helper';
@@ -73,6 +79,18 @@ const editTaskController = (req: TokenRequest, res: Response, next: NextFunction
     .catch(() => next(new CustomError(500, 'server Error')))
 };
 
+const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const { projectId } = req.params;
+  const { sectionId } = req.query;
+
+  getTaskByProjectAndSectionQuery(+projectId!, +sectionId!)
+    .then((data: QueryResult) => res.status(200).json({
+      message: 'Fetch all tasks from a project',
+      data: data.rows,
+    }))
+    .catch(() => next(new CustomError(500, 'server error')))
+}
+
 const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
   const { taskId } = req.query;
 
@@ -86,8 +104,5 @@ const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) =>
 }
 
 export {
-  addTask,
-  getTasks,
-  editTaskController,
-  deleteTaskById,
+  addTask, deleteTaskById, getTasks, editTaskController, getTasksByProjectAndSection,
 };
