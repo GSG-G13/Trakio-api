@@ -8,6 +8,7 @@ import {
 import {
   addTaskQuery,
   getTasksByUserId,
+  editTaskQuery,
   deleteTaskByIdQuery,
   getTaskByProjectAndSectionQuery,
 } from './tasks';
@@ -26,6 +27,7 @@ export {
   deleteProjectById,
   addTaskQuery,
   getTasksByUserId,
+  editTaskQuery,
   deleteTaskByIdQuery,
   getUserData,
   emailExists,
