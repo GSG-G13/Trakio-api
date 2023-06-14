@@ -14,6 +14,7 @@ import {
 } from './task';
 
 import getSections from './section';
+import { addAttachment, getAttachment } from './attachment';
 
 export {
   loginController,
@@ -29,4 +30,6 @@ export {
   deleteTaskById,
   getTasksByProjectAndSection,
   getSections,
+  getAttachment,
+  addAttachment,
 };
