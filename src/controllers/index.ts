@@ -5,7 +5,9 @@ import {
   getProjectByProjectId,
   addProjectController,
 } from './project';
-import { addTask, deleteTaskById, getTasks } from './task';
+import {
+  addTask, deleteTaskById, getTasks, getTasksByProjectAndSection,
+} from './task';
 
 export {
   loginController,
@@ -18,4 +20,5 @@ export {
   getProjectByProjectId,
   deleteTaskById,
   addProjectController,
+  getTasksByProjectAndSection,
 };
