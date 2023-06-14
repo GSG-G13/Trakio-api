@@ -1,3 +1,6 @@
-import { signupSchema, loginSchema } from './schema';
+import { signupSchema, loginSchema, taskSchema } from './schema';
+import projectSchema from './projectSchema';
 
-export { signupSchema, loginSchema };
+export {
+  signupSchema, loginSchema, projectSchema, taskSchema,
+};

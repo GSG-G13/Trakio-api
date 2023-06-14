@@ -1,6 +1,25 @@
 import connection from '../config/connection';
 import Query from '../../interfaces/query';
 
+const addProjectQuery = (title: string, description: string) => {
+  const sql: Query = {
+    text: `INSERT INTO projects (title, description) 
+          VALUES ($1, $2) RETURNING *;`,
+    values: [title, description],
+  };
+  return connection.query(sql);
+};
+
+const addProjectUserQuery = (userId: number, projectId: number, roleId: number) => {
+  const sql: Query = {
+    text: `INSERT INTO project_users (user_id, project_id, role_id)
+    VALUES ($1, $2, $3) Returning *`,
+    values: [userId, projectId, roleId],
+  }
+
+  return connection.query(sql);
+};
+
 const getProjectsQuery = (userId: number) => {
   const sql: Query = {
     text: `SELECT p.title, p.description, p.created_at, pu.project_id, pu.user_id, r.role
@@ -9,11 +28,21 @@ const getProjectsQuery = (userId: number) => {
             ON p.id = pu.project_id
             INNER JOIN roles r 
             ON pu.role_id = r.id
-            WHERE pu.user_id = $1 `,
+            WHERE pu.user_id = $1 Returning * `,
     values: [userId],
   }
   return connection.query(sql);
 };
+
+const getProjectByProjectIDQuery = (projectID: number) => {
+  const query: Query = {
+    text: 'SELECT * FROM projects WHERE id = $1',
+    values: [projectID],
+  }
+
+  return connection.query(query)
+};
+
 const deleteProjectById = (projectId:number) => {
   const query:Query = {
     text: 'DELETE FROM projects WHERE id = $1',
@@ -23,13 +52,10 @@ const deleteProjectById = (projectId:number) => {
   return connection.query(query);
 };
 
-const getProjectByProjectIDQuery = (projectID: number) => {
-  const query:Query = {
-    text: 'SELECT * FROM projects WHERE id = $1',
-    values: [projectID],
-  }
-
-  return connection.query(query)
-}
-
-export { getProjectsQuery, deleteProjectById, getProjectByProjectIDQuery };
+export {
+  addProjectQuery,
+  addProjectUserQuery,
+  getProjectsQuery,
+  getProjectByProjectIDQuery,
+  deleteProjectById,
+};

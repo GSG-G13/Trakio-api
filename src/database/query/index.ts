@@ -1,15 +1,31 @@
-import { getProjectsQuery, deleteProjectById, getProjectByProjectIDQuery } from './projects';
-import { addTaskQuery, deleteTaskByIdQuery, getTasksByUserId } from './tasks';
-import { getUserData, signupQuery, emailExists } from './user';
+import {
+  addProjectQuery,
+  addProjectUserQuery,
+  getProjectsQuery,
+  getProjectByProjectIDQuery,
+  deleteProjectById,
+} from './projects';
+import {
+  addTaskQuery,
+  getTasksByUserId,
+  deleteTaskByIdQuery,
+} from './tasks';
+import {
+  getUserData,
+  emailExists,
+  signupQuery,
+} from './user';
 
 export {
-  getUserData,
+  addProjectQuery,
+  addProjectUserQuery,
   getProjectsQuery,
+  getProjectByProjectIDQuery,
   deleteProjectById,
   addTaskQuery,
-  deleteTaskByIdQuery,
-  getProjectByProjectIDQuery,
-  signupQuery,
-  emailExists,
   getTasksByUserId,
+  deleteTaskByIdQuery,
+  getUserData,
+  emailExists,
+  signupQuery,
 };
