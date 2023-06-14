@@ -1,6 +1,6 @@
 interface AttachmentInterface{
   id: number,
-  attachS3: Text,
+  attachS3: string,
   userId: number,
   taskId: number,
 }
