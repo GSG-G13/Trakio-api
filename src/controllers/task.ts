@@ -72,8 +72,6 @@ const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: Nex
   const { projectId } = req.params;
   const { sectionId } = req.query;
 
-  console.log(projectId, sectionId);
-
   getTaskByProjectAndSectionQuery(+projectId!, +sectionId!)
     .then((data: QueryResult) => res.status(200).json({
       message: 'Fetch all tasks from a project',
