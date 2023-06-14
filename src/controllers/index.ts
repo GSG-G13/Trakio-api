@@ -14,6 +14,7 @@ import {
 } from './task';
 
 import getSections from './section';
+import getMembersByProjectId from './members';
 
 export {
   loginController,
@@ -29,4 +30,5 @@ export {
   deleteTaskById,
   getTasksByProjectAndSection,
   getSections,
+  getMembersByProjectId,
 };
