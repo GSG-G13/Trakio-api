@@ -8,6 +8,7 @@ import {
 import {
   addTask, deleteTaskById, getTasks, getTasksByProjectAndSection,
 } from './task';
+import getSections from './section';
 
 export {
   loginController,
@@ -21,4 +22,5 @@ export {
   deleteTaskById,
   addProjectController,
   getTasksByProjectAndSection,
+  getSections,
 };
