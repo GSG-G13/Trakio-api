@@ -5,6 +5,7 @@ import taskRouter from './task';
 import { errHandler } from '../middleware';
 import sectionRouter from './section';
 import attachmentRouter from './attachment';
+import membersRouter from './members';
 
 const router:Router = express.Router();
 
@@ -13,6 +14,7 @@ router.use(projectRouter);
 router.use(taskRouter);
 router.use(sectionRouter);
 router.use(attachmentRouter);
-router.use(errHandler)
+router.use(membersRouter)
+router.use(errHandler);
 
 export default router;
