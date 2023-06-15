@@ -18,7 +18,7 @@ import {
   signupQuery,
 } from './user';
 import getSectionsQuery from './section';
-import { addAttachmentQuery, getAttachmentQuery } from './attachment';
+import addAttachmentQuery from './attachment';
 
 export {
   addProjectQuery,
@@ -36,5 +36,4 @@ export {
   getTaskByProjectAndSectionQuery,
   getSectionsQuery,
   addAttachmentQuery,
-  getAttachmentQuery,
 };

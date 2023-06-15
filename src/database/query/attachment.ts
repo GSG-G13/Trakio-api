@@ -16,11 +16,5 @@ const addAttachmentQuery = ({
   }
   return connection.query(sql);
 }
-const getAttachmentQuery = (userId: number, taskId: number) => {
-  const sql: Query = {
-    text: 'SELECT * FROM attachments WHERE user_id = $1 and task_id = $2',
-    values: [userId, taskId],
-  }
-  return connection.query(sql);
-};
-export { getAttachmentQuery, addAttachmentQuery };
+
+export default addAttachmentQuery;
