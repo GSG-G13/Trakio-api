@@ -1,10 +1,10 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
-import { loginSchema } from '../helpers/validation';
 import { getUserData, signupQuery, emailExists } from '../database/query';
-import { CustomError, signToken } from '../helpers';
+import {
+  CustomError, signToken, signupSchema, loginSchema,
+} from '../helpers';
 import { TokenRequest, joiInterface, userData } from '../interfaces';
-import { signupSchema } from '../helpers/validation/schema';
 
 const signup = (req: Request, res: Response, next: NextFunction): void => {
   const {

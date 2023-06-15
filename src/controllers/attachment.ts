@@ -1,9 +1,8 @@
 import { Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import { getAttachmentQuery, addAttachmentQuery } from '../database/query';
-import { CustomError } from '../helpers';
 import { TokenRequest, AttachmentInterface } from '../interfaces';
-import { attachmentSchema } from '../helpers/validation';
+import { attachmentSchema, CustomError } from '../helpers';
 
 const addAttachment = (req: TokenRequest, res: Response, next: NextFunction) => {
   const { attachS3, taskId }: AttachmentInterface = req.body;
@@ -13,7 +12,7 @@ const addAttachment = (req: TokenRequest, res: Response, next: NextFunction) => 
     .then((data: QueryResult) => {
       const attachmentData = data.rows[0] as AttachmentInterface;
       res.status(201).json({
-        message: 'Add attchement successfully',
+        message: 'Add attachment successfully',
         data: [attachmentData],
       })
     })

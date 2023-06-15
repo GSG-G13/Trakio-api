@@ -8,8 +8,7 @@ import {
   getProjectByProjectIDQuery,
 } from '../database/query/projects';
 import { TokenRequest, ProjectData } from '../interfaces';
-import { CustomError } from '../helpers';
-import { projectSchema } from '../helpers/validation';
+import { CustomError, projectSchema } from '../helpers';
 
 const addProjectController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const userId = req.userData?.id;
