@@ -10,10 +10,18 @@ const addAttachmentQuery = (attachS3: string, userId: number, taskId: number) =>
   }
   return connection.query(sql);
 }
-const getAttachmentQuery = (userId: number, taskId: number) => {
+const getAttachmentQuery = (projectId: number) => {
   const sql: Query = {
-    text: 'SELECT * FROM attachments WHERE user_id = $1 and task_id = $2',
-    values: [userId, taskId],
+    text: `SELECT a.attach_s3, t.id, t.title, u.id, u.name, u.email
+            FROM attachments a
+            JOIN tasks t
+            ON(a.task_id = t.id)
+            JOIN users u
+            ON(a.user_id = u.id)
+            JOIN projects p
+            ON(t.project_id = p.id)
+            WHERE p.id = $1`,
+    values: [projectId],
   }
   return connection.query(sql);
 };
