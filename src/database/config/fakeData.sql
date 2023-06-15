@@ -58,8 +58,10 @@ INSERT INTO projects (title, description) VALUES (
 );
 
 INSERT INTO roles (role) VALUES ('manager'), ('member');
-
-
+INSERT INTO priorities (priority, color) VALUES 
+('hight', '#F8524B'),
+('medium', '#FF8800'),
+('low', '#06C270');
 INSERT INTO project_users (user_id, project_id, role_id) VALUES (
     2, 2, 2
 );
@@ -78,6 +80,7 @@ INSERT INTO project_users (user_id, project_id, role_id) VALUES (
 INSERT INTO project_users (user_id, project_id, role_id) VALUES (
     7, 2, 2
 );
+INSERT INTO sections (section) VALUES ('To-Do'), ('Doing'), ('Reviewing'), ('Done');
 INSERT INTO tasks (title,description,created_at,due_date,user_id,project_id,priority_id,section_id) VALUES 
 ('add query tasks', 'add tasks', '2023-07-2', '2023-07-2',3,2,1,1);
 INSERT INTO tasks (title,description,created_at,due_date,user_id,project_id,priority_id,section_id) VALUES 
@@ -88,21 +91,11 @@ INSERT INTO tasks (title,description,created_at,due_date,user_id,project_id,prio
 ('add get tasks query', 'add tasks', '2023-07-2', '2023-07-2',6,2,1,1);
 INSERT INTO tasks (title,description,created_at,due_date,user_id,project_id,priority_id,section_id) VALUES 
 ('add post tasks query', 'add tasks', '2023-07-2', '2023-07-2',7,2,1,1);
-INSERT INTO priorities (priority, color) VALUES 
-('hight', '#F8524B'),
-('medium', '#FF8800'),
-('low', '#06C270')
-;
-
-INSERT INTO sections (section) VALUES ('To-Do'), ('Doing'), ('Reviewing'), ('Done');
-
 INSERT INTO tasks (title, description, due_date, user_id, priority_id, section_id, project_id) VALUES (
     'FIRST-TASK', 'my first task description', '2023-07-2', 4, 1, 1,4
 );
-
-
-
 INSERT INTO attachments (attach_s3, user_id, task_id) VALUES (
     'xxxxxxx', 1, 1
 );
+
 COMMIT;
