@@ -1,9 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import {
-  addTaskQuery, getTasksByUserId, deleteTaskByIdQuery, getTaskByProjectAndSectionQuery,
+  addTaskQuery,
+  getTasksByUserId,
+  deleteTaskByIdQuery,
+  editTaskQuery,
+  getTaskByProjectAndSectionQuery,
 } from '../database/query';
-import { TokenRequest } from '../interfaces';
+import { TokenRequest, TaskInterface } from '../interfaces';
 import { taskSchema } from '../validation';
 import { CustomError } from '../helper';
 
@@ -21,19 +25,10 @@ const getTasks = (req: TokenRequest, res: Response, next: NextFunction): void =>
     });
 };
 
-interface taskInterface{
-  title:string,
-  description:string,
-  projectId: number,
-  sectionId: number,
-  dueDate: Date,
-  priorityId:number,
-}
-
 const addTask = (req: Request, res: Response, next: NextFunction) => {
   const {
     title, description, projectId, sectionId, dueDate, priorityId,
-  }: taskInterface = req.body;
+  }: TaskInterface = req.body;
 
   taskSchema.validateAsync({
     title,
@@ -45,7 +40,7 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
   }, { abortEarly: false })
     .then((data) => addTaskQuery(data))
     .then((data: QueryResult) => {
-      const taskData = data.rows[0] as taskInterface;
+      const taskData = data.rows[0] as TaskInterface;
       res.status(201).json({
         message: 'Task Created Successfully',
         data: [
@@ -56,17 +51,33 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
     .catch(() => next(new CustomError(500, 'server error')))
 };
 
-const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { taskId } = req.query;
+const editTaskController = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const taskId = +req.query.task_id!;
 
-  deleteTaskByIdQuery(+taskId!)
-    .then(() => {
-      res.status(200).json({
-        message: 'Task Deleted successfully',
-      })
-    })
-    .catch(() => next(new CustomError(500, 'Server Error')));
-}
+  const {
+    title,
+    description,
+    projectId,
+    priorityId,
+    dueDate,
+    sectionId,
+  } = req.body as TaskInterface;
+
+  taskSchema.validateAsync({
+    title,
+    description,
+    projectId,
+    sectionId,
+    dueDate,
+    priorityId,
+  })
+    .then((updatedTask) => editTaskQuery({ id: taskId, ...updatedTask }))
+    .then((data:QueryResult) => res.json({
+      message: 'Task Updated Successfully',
+      data: data.rows,
+    }))
+    .catch(() => next(new CustomError(500, 'server Error')))
+};
 
 const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: NextFunction) => {
   const { projectId } = req.params;
@@ -80,6 +91,18 @@ const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: Nex
     .catch(() => next(new CustomError(500, 'server error')))
 }
 
+const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const { taskId } = req.query;
+
+  deleteTaskByIdQuery(+taskId!)
+    .then(() => {
+      res.status(200).json({
+        message: 'Task Deleted successfully',
+      })
+    })
+    .catch(() => next(new CustomError(500, 'Server Error')));
+}
+
 export {
-  addTask, deleteTaskById, getTasks, getTasksByProjectAndSection,
+  addTask, deleteTaskById, getTasks, editTaskController, getTasksByProjectAndSection,
 };

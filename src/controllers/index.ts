@@ -6,21 +6,29 @@ import {
   addProjectController,
 } from './project';
 import {
-  addTask, deleteTaskById, getTasks, getTasksByProjectAndSection,
+  addTask,
+  getTasks,
+  editTaskController,
+  deleteTaskById,
+  getTasksByProjectAndSection,
 } from './task';
+
 import getSections from './section';
+import addAttachment from './attachment';
 
 export {
   loginController,
   logout,
   signup,
   getProjects,
+  getProjectByProjectId,
+  addProjectController,
   deleteProject,
   addTask,
   getTasks,
-  getProjectByProjectId,
+  editTaskController,
   deleteTaskById,
-  addProjectController,
   getTasksByProjectAndSection,
   getSections,
+  addAttachment,
 };

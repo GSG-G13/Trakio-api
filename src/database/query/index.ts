@@ -8,6 +8,7 @@ import {
 import {
   addTaskQuery,
   getTasksByUserId,
+  editTaskQuery,
   deleteTaskByIdQuery,
   getTaskByProjectAndSectionQuery,
 } from './tasks';
@@ -17,7 +18,7 @@ import {
   signupQuery,
 } from './user';
 import getSectionsQuery from './section';
-import getAttachmentQuery from './attachment';
+import { getAttachmentQuery, addAttachmentQuery } from './attachment';
 
 export {
   addProjectQuery,
@@ -27,6 +28,7 @@ export {
   deleteProjectById,
   addTaskQuery,
   getTasksByUserId,
+  editTaskQuery,
   deleteTaskByIdQuery,
   getUserData,
   emailExists,
@@ -34,4 +36,5 @@ export {
   getTaskByProjectAndSectionQuery,
   getSectionsQuery,
   getAttachmentQuery,
+  addAttachmentQuery,
 };
