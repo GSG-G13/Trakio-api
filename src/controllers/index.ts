@@ -13,7 +13,7 @@ import {
   getTasksByProjectAndSection,
 } from './task';
 import getSections from './section';
-import getAttachment from './attachment';
+import { getAttachment, addAttachment } from './attachment';
 
 export {
   loginController,
@@ -30,4 +30,5 @@ export {
   getTasksByProjectAndSection,
   getSections,
   getAttachment,
+  addAttachment,
 };
