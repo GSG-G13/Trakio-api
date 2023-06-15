@@ -8,8 +8,8 @@ import {
   getTaskByProjectAndSectionQuery,
 } from '../database/query';
 import { TokenRequest, TaskInterface } from '../interfaces';
-import { taskSchema } from '../validation';
-import { CustomError } from '../helper';
+import { taskSchema } from '../helpers/validation';
+import { CustomError } from '../helpers';
 
 const getTasks = (req: TokenRequest, res: Response, next: NextFunction): void => {
   const userId = req.userData?.id;

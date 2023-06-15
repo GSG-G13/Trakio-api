@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { getSectionsQuery } from '../database/query';
-import { CustomError } from '../helper';
+import { CustomError } from '../helpers';
 
 const getSections = (req: Request, res: Response, next: NextFunction) => {
   getSectionsQuery()

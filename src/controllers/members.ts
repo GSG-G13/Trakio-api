@@ -2,7 +2,7 @@ import { Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import { TokenRequest } from '../interfaces';
 import { getMembersByProjectQuery } from '../database/query';
-import { CustomError } from '../helper';
+import { CustomError } from '../helpers';
 
 const getMembersByProjectId = (req: TokenRequest, res: Response, next: NextFunction) => {
   const { projectId } = req.query

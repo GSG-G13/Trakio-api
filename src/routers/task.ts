@@ -8,7 +8,6 @@ import {
   getTasksByProjectAndSection,
 } from '../controllers';
 
-
 const taskRouter: Router = express.Router();
 taskRouter.post('/tasks', authCheck, addTask);
 taskRouter.delete('/task', authCheck, deleteTaskById);

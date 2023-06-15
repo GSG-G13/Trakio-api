@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { verifyToken, CustomError } from '../helper';
+import { verifyToken, CustomError } from '../helpers';
 import { TokenRequest, userData } from '../interfaces';
 
 const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {

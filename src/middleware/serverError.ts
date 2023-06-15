@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { CustomError } from '../helper';
+import { CustomError } from '../helpers';
 
 const errHandler = (err: CustomError, req: Request, res: Response, next:NextFunction) => {
   const statusCode = err.status || 500;
