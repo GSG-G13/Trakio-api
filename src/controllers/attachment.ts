@@ -1,8 +1,8 @@
 import { Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
-import { TokenRequest, AttachmentInterface } from '../interfaces';
-import { addAttachmentQuery } from '../database/query';
+import { getAttachmentQuery, addAttachmentQuery } from '../database/query';
 import { CustomError } from '../helper';
+import { TokenRequest, AttachmentInterface } from '../interfaces';
 import { attachmentSchema } from '../validation';
 
 const addAttachment = (req: TokenRequest, res: Response, next: NextFunction) => {
@@ -20,4 +20,16 @@ const addAttachment = (req: TokenRequest, res: Response, next: NextFunction) => 
     .catch(() => next(new CustomError(500, 'Server Error')));
 };
 
-export default addAttachment;
+const getAttachment = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const projectId = req.params;
+  getAttachmentQuery(+projectId)
+    .then((data: QueryResult) => {
+      res.status(200).json({
+        message: 'Fetch attchement successfully',
+        data: data.rows,
+      })
+    })
+    .catch(() => next(new CustomError(500, 'Server Error')));
+};
+
+export { getAttachment, addAttachment };
