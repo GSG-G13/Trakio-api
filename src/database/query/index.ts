@@ -19,6 +19,7 @@ import {
 } from './user';
 import getSectionsQuery from './section';
 import { getAttachmentQuery, addAttachmentQuery } from './attachment';
+import getMembersByProjectQuery from './members';
 
 export {
   addProjectQuery,
@@ -37,4 +38,5 @@ export {
   getSectionsQuery,
   getAttachmentQuery,
   addAttachmentQuery,
+  getMembersByProjectQuery,
 };
