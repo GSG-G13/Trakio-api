@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
 import { CustomError } from '../helpers';
 
@@ -8,8 +9,6 @@ const errHandler = (err: CustomError, req: Request, res: Response, next:NextFunc
   res.status(statusCode).json({
     message,
   });
-
-  next();
 };
 
 export default errHandler;
