@@ -24,7 +24,7 @@ const getAttachment = (req: TokenRequest, res: Response, next: NextFunction) => 
   getAttachmentQuery(+projectId)
     .then((data: QueryResult) => {
       res.status(200).json({
-        message: 'Fetch attchement successfully',
+        message: 'Fetch attachment successfully',
         data: data.rows,
       })
     })

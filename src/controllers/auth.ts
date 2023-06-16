@@ -23,7 +23,7 @@ const signup = (req: Request, res: Response, next: NextFunction): void => {
     .then(() => emailExists(email))
     .then((exists) => {
       if (exists.rows[0].exists !== false) {
-        next(new CustomError(406, 'Email already exists'));
+        throw new CustomError(406, 'Email already exists');
       }
       return bcrypt.hash(password, 10);
     })
@@ -56,14 +56,14 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
   loginSchema.validateAsync({ password, email })
     .then((data) => getUserData(data.email))
     .then(({ rows }) => {
-      if (rows.length <= 0) next(new CustomError(406, 'wrong email'));
+      if (rows.length <= 0) throw new CustomError(406, 'wrong email');
       userInfo = {
         id: rows[0].id, name: rows[0].name, email: rows[0].email, phone: rows[0].phone,
       };
       return compare(password, rows[0].password);
     })
     .then((isMatch) => {
-      if (!isMatch) next(new CustomError(406, 'Please enter correct password'));
+      if (!isMatch) throw new CustomError(406, 'Please enter correct password');
       return signToken({
         email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
       });
