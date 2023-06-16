@@ -20,7 +20,7 @@ const addProjectController = (req: TokenRequest, res: Response, next: NextFuncti
     .then((data: QueryResult) => {
       const project:ProjectData = data.rows[0];
       addProjectUserQuery(+userId!, data.rows[0].id, 1)
-      return project;
+      return Promise.resolve(project);
     })
     .then((project:ProjectData) => {
       res.status(201).json({
