@@ -7,7 +7,7 @@ import {
   deleteProjectById,
   getProjectByProjectIDQuery,
 } from '../database/query/projects';
-import { TokenRequest, ProjectData } from '../interfaces';
+import { TokenRequest, ProjectData, RoleRequest } from '../interfaces';
 import { CustomError } from '../helper';
 import { projectSchema } from '../validation';
 
@@ -46,8 +46,10 @@ const getProjects = (req: TokenRequest, res: Response, next: NextFunction) => {
     .catch(() => next(new CustomError(500, 'Server Error')));
 };
 
-const getProjectByProjectId = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = req.query.projectId!
+const getProjectByProjectId = (req: RoleRequest, res: Response, next: NextFunction) => {
+  // const projectId = req.query.projectId!
+  console.log(req.userRole);
+  const projectId = req.params.id
   getProjectByProjectIDQuery(+projectId)
     .then((data: QueryResult) => res.status(200).json({
       message: 'Fetch project detail successfully',
