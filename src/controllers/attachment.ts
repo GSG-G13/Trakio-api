@@ -5,11 +5,12 @@ import { TokenRequest, AttachmentInterface } from '../interfaces';
 import { attachmentSchema, CustomError } from '../helpers';
 
 const addAttachmentController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { attachS3, taskId }: AttachmentInterface = req.body;
+  const taskId = +req.params.id!;
+  const { attachS3 }: AttachmentInterface = req.body;
   const userId = req.userData?.id;
 
   attachmentSchema.validateAsync({ attachS3, userId, taskId }, { abortEarly: false })
-    .then(() => addAttachmentQuery(attachS3, +userId!, +taskId!))
+    .then(() => addAttachmentQuery(attachS3, +userId!, taskId))
     .then((data: QueryResult) => {
       const attachmentData = data.rows[0] as AttachmentInterface;
       res.status(201).json({
@@ -21,9 +22,9 @@ const addAttachmentController = (req: TokenRequest, res: Response, next: NextFun
 };
 
 const getAttachmentController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = req.params;
+  const taskId = +req.params.id!;
 
-  getAttachmentQuery(+projectId)
+  getAttachmentQuery(taskId)
     .then((data: QueryResult) => {
       res.status(200).json({
         message: 'Fetch attachment successfully',

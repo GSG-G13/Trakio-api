@@ -4,7 +4,7 @@ import { checkAuth } from '../middleware';
 
 const attachmentRouter: Router = express.Router();
 
-attachmentRouter.post('/attachment', checkAuth, addAttachmentController);
-attachmentRouter.get('/attachment', checkAuth, getAttachmentController);
+attachmentRouter.post('/attachment/:id', checkAuth, addAttachmentController);
+attachmentRouter.get('/attachment/:id', checkAuth, getAttachmentController);
 
 export default attachmentRouter;
