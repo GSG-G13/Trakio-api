@@ -5,9 +5,9 @@ import { getMembersByProjectQuery } from '../database';
 import { CustomError } from '../helpers';
 
 const getMembersByProjectIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { projectId } = req.query;
+  const projectId = +req.params.id!;
 
-  getMembersByProjectQuery(+projectId!)
+  getMembersByProjectQuery(projectId)
     .then((data: QueryResult) => res.status(200).json({
       messages: 'Fetch members Successfully',
       data: data.rows,
