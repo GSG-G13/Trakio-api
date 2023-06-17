@@ -3,5 +3,9 @@ import projectSchema from './projectSchema';
 import attachmentSchema from './attachmentSchema';
 
 export {
-  signupSchema, loginSchema, projectSchema, taskSchema, attachmentSchema,
+  signupSchema,
+  loginSchema,
+  projectSchema,
+  taskSchema,
+  attachmentSchema,
 };
