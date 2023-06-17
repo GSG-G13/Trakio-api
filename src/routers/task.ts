@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { checkAuth } from '../middleware';
+import { checkAuth, checkMember, checkManager } from '../middleware';
 import {
   addTaskController,
   getTasksController,
@@ -10,10 +10,10 @@ import {
 
 const taskRouter: Router = express.Router();
 
-taskRouter.post('/task', checkAuth, addTaskController);
+taskRouter.post('/project/:id/task', checkAuth, checkMember, checkManager, addTaskController);
 taskRouter.get('/tasks', checkAuth, getTasksController);
-taskRouter.get('/tasks/:id', checkAuth, getTasksByProjectAndSection);
-taskRouter.put('/task/:id', checkAuth, editTaskController);
-taskRouter.delete('/task/:id', checkAuth, deleteTaskByIdController);
+taskRouter.get('/project/:id/task', checkAuth, checkMember, getTasksByProjectAndSection);
+taskRouter.put('/project/:id/task', checkAuth, checkMember, checkManager, editTaskController); // it has taskId in the query
+taskRouter.delete('/project/:id/task', checkAuth, checkMember, checkManager, deleteTaskByIdController); // it has taskId in the query
 
 export default taskRouter;

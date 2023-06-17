@@ -3,7 +3,7 @@ import { Query } from '../../interfaces'
 
 const getMembersByProjectQuery = (projectId: number) => {
   const query: Query = {
-    text: `SELECT u.name, u.email, u.email, u.phone, r.role
+    text: `SELECT u.id, u.name, u.email, u.email, u.phone, r.role
           FROM users u JOIN project_users pu
           ON u.id = pu.user_id
           JOIN roles r

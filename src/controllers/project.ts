@@ -45,7 +45,7 @@ const getProjectsController = (req: TokenRequest, res: Response, next: NextFunct
 };
 
 const getProjectByProjectIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = req.query.projectId!
+  const projectId = req.params.id
   getProjectByProjectIDQuery(+projectId)
     .then((data: QueryResult) => res.status(200).json({
       message: 'Fetch project detail successfully',
