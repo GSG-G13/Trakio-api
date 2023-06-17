@@ -61,7 +61,7 @@ const editTaskQuery = (task: TaskInterface) => {
 
 const deleteTaskByIdQuery = (taskId: number) => {
   const sql: Query = {
-    text: 'DELETE FROM tasks WHERE id = $1',
+    text: 'DELETE FROM tasks WHERE id = $1 RETURNING *',
     values: [taskId],
   };
   return connection.query(sql);

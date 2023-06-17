@@ -12,8 +12,8 @@ const taskRouter: Router = express.Router();
 
 taskRouter.post('/task', checkAuth, addTaskController);
 taskRouter.get('/tasks', checkAuth, getTasksController);
-taskRouter.get('/tasks/project/:projectId', checkAuth, getTasksByProjectAndSection);
-taskRouter.put('/task', checkAuth, editTaskController);
-taskRouter.delete('/task', checkAuth, deleteTaskByIdController);
+taskRouter.get('/tasks/:id', checkAuth, getTasksByProjectAndSection);
+taskRouter.put('/task/:id', checkAuth, editTaskController);
+taskRouter.delete('/task/:id', checkAuth, deleteTaskByIdController);
 
 export default taskRouter;

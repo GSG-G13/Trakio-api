@@ -52,8 +52,8 @@ const getTasksController = (req: TokenRequest, res: Response, next: NextFunction
 };
 
 const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { projectId } = req.params;
-  const { sectionId } = req.query;
+  const projectId = +req.params.id!;
+  const sectionId = +req.query.sectionId!;
 
   getTaskByProjectAndSectionQuery(+projectId!, +sectionId!)
     .then((data: QueryResult) => res.status(200).json({
@@ -64,7 +64,7 @@ const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: Nex
 };
 
 const editTaskController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const taskId = +req.query.task_id!;
+  const taskId = +req.params.id!;
   const {
     title,
     description,
@@ -91,12 +91,13 @@ const editTaskController = (req: TokenRequest, res: Response, next: NextFunction
 };
 
 const deleteTaskByIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { taskId } = req.query;
+  const taskId = +req.params.id!;
 
-  deleteTaskByIdQuery(+taskId!)
-    .then(() => {
+  deleteTaskByIdQuery(taskId)
+    .then((data) => {
       res.status(200).json({
         message: 'Task Deleted successfully',
+        data: data.rows,
       })
     })
     .catch(() => next(new CustomError(500, 'Server Error')));
