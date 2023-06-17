@@ -4,6 +4,6 @@ import { authCheck } from '../middleware';
 
 const sectionRouter: Router = express.Router();
 
-sectionRouter.get('/sections', authCheck, getSections);
+sectionRouter.get('/api/sections', authCheck, getSections);
 
 export default sectionRouter;
