@@ -40,13 +40,7 @@ const signupController = (req: Request, res: Response, next: NextFunction): void
       message: 'Created successfully',
       data: [{ name, email, phone }],
     }))
-    .catch((err: CustomError | joiInterface) => {
-      if ('isJoi' in err) {
-        next(new CustomError(406, err.details[0].message));
-      } else {
-        next(new CustomError(500, 'server error'));
-      }
-    });
+    .catch((error)=>next(error));
 };
 
 const loginController = (req: TokenRequest, res: Response, next: NextFunction) => {
@@ -77,13 +71,7 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
       message: 'Logged In Successfully',
       data: [userInfo],
     }))
-    .catch((err: CustomError | joiInterface) => {
-      if ('isJoi' in err) {
-        next(new CustomError(406, err.details[0].message));
-      } else {
-        next(new CustomError(500, 'server error'));
-      }
-    });
+    .catch((error)=>next(error));
 };
 
 const logoutController = (req: Request, res: Response) => {

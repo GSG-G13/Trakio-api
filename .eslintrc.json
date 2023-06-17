@@ -22,5 +22,6 @@
     "semi": "off",
     "linebreak-style": "off"
   },
-  "ignorePatterns": ["**/__tests__/*.ts"]
+  "ignorePatterns": ["**/__tests__/*.ts"],
+  "no-restricted-globals": "off"
 }

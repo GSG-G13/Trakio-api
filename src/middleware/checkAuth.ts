@@ -5,7 +5,8 @@ import { TokenRequest, userData } from '../interfaces';
 const checkAuth = (req:TokenRequest, res: Response, next:NextFunction) => {
   const { token } = req.cookies;
   if (!token) {
-    throw new CustomError(401, 'forbidden');
+    next(new CustomError(401, 'forbidden'));
+    return;
   }
 
   verifyToken(token)
