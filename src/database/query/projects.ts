@@ -43,7 +43,7 @@ const getProjectByProjectIDQuery = (projectID: number) => {
 
 const deleteProjectByIdQuery = (projectId:number) => {
   const query:Query = {
-    text: 'DELETE FROM projects WHERE id = $1',
+    text: 'DELETE FROM projects WHERE id = $1 RETURNING *',
     values: [projectId],
   };
   return connection.query(query);

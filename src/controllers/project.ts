@@ -24,7 +24,7 @@ const addProjectController = (req: TokenRequest, res: Response, next: NextFuncti
     .then((project: ProjectData) => {
       res.status(201).json({
         message: 'New Project added Successfully',
-        data: project,
+        data: [project],
       })
     })
     .catch(() => next(new CustomError(500, 'server Error')));
@@ -44,7 +44,7 @@ const getProjectsController = (req: TokenRequest, res: Response, next: NextFunct
 };
 
 const getProjectByProjectIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = req.query.projectId!;
+  const projectId = +req.params.id!;
 
   getProjectByProjectIDQuery(+projectId)
     .then((data: QueryResult) => res.status(200).json({
@@ -55,12 +55,13 @@ const getProjectByProjectIdController = (req: TokenRequest, res: Response, next:
 };
 
 const deleteProjectController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { projectId } = req.params;
+  const projectId = +req.params.id!;
 
   deleteProjectByIdQuery(+projectId)
-    .then(() => {
+    .then((data:QueryResult) => {
       res.status(200).json({
         message: 'Project deleted successfully',
+        data: data.rows,
       });
     })
     .catch(() => {
