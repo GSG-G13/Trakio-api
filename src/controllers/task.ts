@@ -2,29 +2,15 @@ import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import {
   addTaskQuery,
-  getTasksByUserId,
-  deleteTaskByIdQuery,
-  editTaskQuery,
+  getTasksByUserIdQuery,
   getTaskByProjectAndSectionQuery,
-} from '../database/query';
+  editTaskQuery,
+  deleteTaskByIdQuery,
+} from '../database';
 import { TokenRequest, TaskInterface } from '../interfaces';
 import { taskSchema, CustomError } from '../helpers';
 
-const getTasks = (req: TokenRequest, res: Response, next: NextFunction): void => {
-  const userId = req.userData?.id;
-  getTasksByUserId(+userId!)
-    .then((tasks) => {
-      res.status(200).json({
-        message: 'Tasks retrieved successfully',
-        data: tasks.rows,
-      });
-    })
-    .catch(() => {
-      next(new CustomError(500, 'server error'));
-    });
-};
-
-const addTask = (req: Request, res: Response, next: NextFunction) => {
+const addTaskController = (req: Request, res: Response, next: NextFunction) => {
   const {
     title, description, projectId, sectionId, dueDate, priorityId,
   }: TaskInterface = req.body;
@@ -47,12 +33,38 @@ const addTask = (req: Request, res: Response, next: NextFunction) => {
         ],
       })
     })
-    .catch(() => next(new CustomError(500, 'server error')))
+    .catch(() => next(new CustomError(500, 'server error')));
+};
+
+const getTasksController = (req: TokenRequest, res: Response, next: NextFunction): void => {
+  const userId = req.userData?.id;
+
+  getTasksByUserIdQuery(+userId!)
+    .then((tasks) => {
+      res.status(200).json({
+        message: 'Tasks retrieved successfully',
+        data: tasks.rows,
+      });
+    })
+    .catch(() => {
+      next(new CustomError(500, 'server error'));
+    });
+};
+
+const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const { projectId } = req.params;
+  const { sectionId } = req.query;
+
+  getTaskByProjectAndSectionQuery(+projectId!, +sectionId!)
+    .then((data: QueryResult) => res.status(200).json({
+      message: 'Fetch all tasks from a project',
+      data: data.rows,
+    }))
+    .catch(() => next(new CustomError(500, 'server error')));
 };
 
 const editTaskController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const taskId = +req.query.task_id!;
-
   const {
     title,
     description,
@@ -71,26 +83,14 @@ const editTaskController = (req: TokenRequest, res: Response, next: NextFunction
     priorityId,
   })
     .then((updatedTask) => editTaskQuery({ id: taskId, ...updatedTask }))
-    .then((data:QueryResult) => res.json({
+    .then((data: QueryResult) => res.json({
       message: 'Task Updated Successfully',
       data: data.rows,
     }))
-    .catch(() => next(new CustomError(500, 'server Error')))
+    .catch(() => next(new CustomError(500, 'server Error')));
 };
 
-const getTasksByProjectAndSection = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const { projectId } = req.params;
-  const { sectionId } = req.query;
-
-  getTaskByProjectAndSectionQuery(+projectId!, +sectionId!)
-    .then((data: QueryResult) => res.status(200).json({
-      message: 'Fetch all tasks from a project',
-      data: data.rows,
-    }))
-    .catch(() => next(new CustomError(500, 'server error')))
-}
-
-const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) => {
+const deleteTaskByIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const { taskId } = req.query;
 
   deleteTaskByIdQuery(+taskId!)
@@ -100,8 +100,12 @@ const deleteTaskById = (req: TokenRequest, res: Response, next: NextFunction) =>
       })
     })
     .catch(() => next(new CustomError(500, 'Server Error')));
-}
+};
 
 export {
-  addTask, deleteTaskById, getTasks, editTaskController, getTasksByProjectAndSection,
+  addTaskController,
+  getTasksController,
+  getTasksByProjectAndSection,
+  editTaskController,
+  deleteTaskByIdController,
 };

@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import { getAttachment, addAttachment } from '../controllers';
-import { authCheck } from '../middleware';
+import { addAttachmentController, getAttachmentController } from '../controllers';
+import { checkAuth } from '../middleware';
 
 const attachmentRouter: Router = express.Router();
 
-attachmentRouter.get('/attachment', authCheck, getAttachment);
+attachmentRouter.post('/attachment', checkAuth, addAttachmentController);
+attachmentRouter.get('/attachment', checkAuth, getAttachmentController);
 
-attachmentRouter.post('/attachment', authCheck, addAttachment);
 export default attachmentRouter;

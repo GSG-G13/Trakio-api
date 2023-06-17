@@ -7,9 +7,10 @@ const addAttachmentQuery = (attachS3: string, userId: number, taskId: number) =>
             VALUES ($1, $2, $3)
             RETURNING *`,
     values: [attachS3, userId, taskId],
-  }
+  };
   return connection.query(sql);
-}
+};
+
 const getAttachmentQuery = (projectId: number) => {
   const sql: Query = {
     text: `SELECT a.attach_s3, t.id, t.title, u.id, u.name, u.email
@@ -22,7 +23,8 @@ const getAttachmentQuery = (projectId: number) => {
             ON(t.project_id = p.id)
             WHERE p.id = $1`,
     values: [projectId],
-  }
+  };
   return connection.query(sql);
 };
-export { getAttachmentQuery, addAttachmentQuery };
+
+export { addAttachmentQuery, getAttachmentQuery };

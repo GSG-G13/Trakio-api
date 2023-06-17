@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { getSectionsQuery } from '../database/query';
+import { getSectionsQuery } from '../database';
 import { CustomError } from '../helpers';
 
-const getSections = (req: Request, res: Response, next: NextFunction) => {
+const getSectionsController = (req: Request, res: Response, next: NextFunction) => {
   getSectionsQuery()
     .then((data) => {
       res.status(200).json({
@@ -14,4 +14,5 @@ const getSections = (req: Request, res: Response, next: NextFunction) => {
       next(new CustomError(500, 'server error'));
     });
 };
-export default getSections;
+
+export default getSectionsController;

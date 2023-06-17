@@ -1,12 +1,16 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
-import { getUserData, signupQuery, emailExists } from '../database/query';
+import {
+  signupQuery,
+  getUserDataQuery,
+  emailExistsQuery,
+} from '../database';
 import {
   CustomError, signToken, signupSchema, loginSchema,
 } from '../helpers';
 import { TokenRequest, joiInterface, userData } from '../interfaces';
 
-const signup = (req: Request, res: Response, next: NextFunction): void => {
+const signupController = (req: Request, res: Response, next: NextFunction): void => {
   const {
     name, password, email, phone,
   }: {
@@ -14,13 +18,13 @@ const signup = (req: Request, res: Response, next: NextFunction): void => {
     password: string;
     email: string;
     phone: string;
-  } = req.body;
+    } = req.body;
 
   signupSchema
     .validateAsync({
       name, password, email, phone,
     }, { abortEarly: true })
-    .then(() => emailExists(email))
+    .then(() => emailExistsQuery(email))
     .then((exists) => {
       if (exists.rows[0].exists !== false) {
         throw new CustomError(406, 'Email already exists');
@@ -53,8 +57,9 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
     email: '',
     phone: '',
   };
+
   loginSchema.validateAsync({ password, email })
-    .then((data) => getUserData(data.email))
+    .then((data) => getUserDataQuery(data.email))
     .then(({ rows }) => {
       if (rows.length <= 0) throw new CustomError(406, 'wrong email');
       userInfo = {
@@ -81,8 +86,8 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
     });
 };
 
-const logout = (req: Request, res: Response) => {
+const logoutController = (req: Request, res: Response) => {
   res.clearCookie('token').json({ message: 'Logged Out Successfully' });
 };
 
-export { signup, loginController, logout };
+export { signupController, loginController, logoutController };

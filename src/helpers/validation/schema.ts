@@ -26,5 +26,6 @@ const taskSchema = Joi.object({
   sectionId: Joi.number().required(),
   dueDate: Joi.date().required(),
   priorityId: Joi.number().required(),
-})
+});
+
 export { signupSchema, loginSchema, taskSchema };
