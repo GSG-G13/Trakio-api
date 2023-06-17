@@ -1,5 +1,5 @@
-import connection from '../config/connection';
-import Query from '../../interfaces/query';
+import connection from '../config';
+import { Query } from '../../interfaces';
 
 const addProjectQuery = (title: string, description: string) => {
   const sql: Query = {
@@ -15,8 +15,7 @@ const addProjectUserQuery = (userId: number, projectId: number, roleId: number) 
     text: `INSERT INTO project_users (user_id, project_id, role_id)
     VALUES ($1, $2, $3) Returning *`,
     values: [userId, projectId, roleId],
-  }
-
+  };
   return connection.query(sql);
 };
 
@@ -28,9 +27,9 @@ const getProjectsQuery = (userId: number) => {
             ON p.id = pu.project_id
             INNER JOIN roles r 
             ON pu.role_id = r.id
-            WHERE pu.user_id = $1 Returning * `,
+            WHERE pu.user_id = $1`,
     values: [userId],
-  }
+  };
   return connection.query(sql);
 };
 
@@ -38,17 +37,15 @@ const getProjectByProjectIDQuery = (projectID: number) => {
   const query: Query = {
     text: 'SELECT * FROM projects WHERE id = $1',
     values: [projectID],
-  }
-
-  return connection.query(query)
+  };
+  return connection.query(query);
 };
 
-const deleteProjectById = (projectId:number) => {
+const deleteProjectByIdQuery = (projectId:number) => {
   const query:Query = {
-    text: 'DELETE FROM projects WHERE id = $1',
+    text: 'DELETE FROM projects WHERE id = $1 RETURNING *',
     values: [projectId],
   };
-
   return connection.query(query);
 };
 
@@ -57,5 +54,5 @@ export {
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,
-  deleteProjectById,
+  deleteProjectByIdQuery,
 };

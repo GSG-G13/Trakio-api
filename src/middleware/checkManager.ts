@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express'
 import { RoleRequest } from '../interfaces'
-import { CustomError } from '../helper'
+import { CustomError } from '../helpers'
 
 const checkManager = (req: RoleRequest, res: Response, next: NextFunction) => {
   if (req.userRole === 'manager') {

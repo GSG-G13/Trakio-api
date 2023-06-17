@@ -5,4 +5,5 @@ const attachmentSchema = Joi.object({
   userId: Joi.number().min(0).required(),
   taskId: Joi.number().required(),
 });
+
 export default attachmentSchema;

@@ -1,8 +1,9 @@
-import authCheck from './checkAuth';
+import checkAuth from './checkAuth';
 import errHandler from './serverError';
-import checkMember from './checkMember';
+import clientError from './clientError';
 import checkManager from './checkManager';
+import checkMember from './checkMember';
 
 export {
-  authCheck, errHandler, checkMember, checkManager,
+  checkAuth, errHandler, clientError, checkManager, checkMember,
 }

@@ -1,18 +1,19 @@
 import express, { Router } from 'express';
-import { authCheck, checkManager, checkMember } from '../middleware';
+import { checkAuth } from '../middleware';
 import {
-  addTask,
-  getTasks,
-  deleteTaskById,
-  editTaskController,
+  addTaskController,
+  getTasksController,
   getTasksByProjectAndSection,
+  editTaskController,
+  deleteTaskByIdController,
 } from '../controllers';
 
 const taskRouter: Router = express.Router();
-taskRouter.post('/tasks/:id', authCheck, checkMember, checkManager, addTask);
-taskRouter.delete('/task', authCheck, deleteTaskById);
-taskRouter.get('/tasks', authCheck, getTasks);
-taskRouter.put('/task', authCheck, editTaskController)
-taskRouter.get('/project/tasks/:projectId', authCheck, getTasksByProjectAndSection)
+
+taskRouter.post('/task', checkAuth, addTaskController);
+taskRouter.get('/tasks', checkAuth, getTasksController);
+taskRouter.get('/tasks/:id', checkAuth, getTasksByProjectAndSection);
+taskRouter.put('/task/:id', checkAuth, editTaskController);
+taskRouter.delete('/task/:id', checkAuth, deleteTaskByIdController);
 
 export default taskRouter;
