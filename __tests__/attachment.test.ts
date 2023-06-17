@@ -46,7 +46,6 @@ describe('POST /attachment/:id', () => {
 describe('GET /attachment/:id', () => {
     it('should fetch attachments for a project', (done) => {
         const projectId = 1;
-
         request(app)
             .get(`/attachment/${projectId}`)
             .set('cookie', `token=${process.env.token}`)
@@ -56,6 +55,19 @@ describe('GET /attachment/:id', () => {
                 log(res.body.message);
                 expect(res.body.message).to.equal('Fetch attachment successfully');
                 expect(res.body.data).to.be.an('array');
+                done();
+            });
+    });
+
+    it('should return an error if fetching attachments fails', (done) => {
+        const projectId = '66666t';
+        request(app)
+            .get(`/attachment/${projectId}`)
+            .set('cookie', `token=${process.env.token}`)
+            .expect(500)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body.message).to.equal('Server Error');
                 done();
             });
     });
