@@ -1,36 +1,43 @@
-import { logout, loginController, signup } from './auth';
 import {
-  getProjects,
-  deleteProject,
-  getProjectByProjectId,
+  signupController,
+  loginController,
+  logoutController,
+} from './auth';
+import {
   addProjectController,
+  getProjectsController,
+  getProjectByProjectIdController,
+  deleteProjectController,
 } from './project';
 import {
-  addTask,
-  getTasks,
-  editTaskController,
-  deleteTaskById,
+  addTaskController,
+  getTasksController,
   getTasksByProjectAndSection,
+  editTaskController,
+  deleteTaskByIdController,
 } from './task';
-import getSections from './section';
-import { getAttachment, addAttachment } from './attachment';
-import getMembersByProjectId from './members';
+import getSectionsController from './section';
+import {
+  addAttachmentController,
+  getAttachmentController,
+} from './attachment';
+import getMembersByProjectIdController from './members';
 
 export {
+  signupController,
   loginController,
-  logout,
-  signup,
-  getProjects,
-  getProjectByProjectId,
+  logoutController,
   addProjectController,
-  deleteProject,
-  addTask,
-  getTasks,
-  editTaskController,
-  deleteTaskById,
+  getProjectsController,
+  getProjectByProjectIdController,
+  deleteProjectController,
+  addTaskController,
+  getTasksController,
   getTasksByProjectAndSection,
-  getSections,
-  getAttachment,
-  addAttachment,
-  getMembersByProjectId,
+  editTaskController,
+  deleteTaskByIdController,
+  getSectionsController,
+  addAttachmentController,
+  getAttachmentController,
+  getMembersByProjectIdController,
 };

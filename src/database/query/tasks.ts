@@ -1,4 +1,4 @@
-import connection from '../config/connection';
+import connection from '../config';
 import { Query, TaskInterface } from '../../interfaces';
 
 const addTaskQuery = ({
@@ -20,25 +20,33 @@ const addTaskQuery = ({
   return connection.query(sql);
 };
 
-const getTasksByUserId = (userId:number) => {
+const getTasksByUserIdQuery = (userId:number) => {
   const query:Query = {
     text: 'SELECT * FROM tasks WHERE user_id = $1',
     values: [userId],
   };
+  return connection.query(query)
+};
 
+const getTaskByProjectAndSectionQuery = (projectId: number, sectionId: number) => {
+  const query: Query = {
+    text: `SELECT t.id, t.title, t.description, pr.priority, s.section, p.title, t.created_at
+          FROM tasks t JOIN projects p
+          ON t.project_id = p.id
+          JOIN sections s
+          ON t.section_id = s.id
+          JOIN priorities pr
+          ON t.priority_id = pr.id
+          WHERE p.id = $1 AND s.id = $2`,
+    values: [projectId, sectionId],
+  };
   return connection.query(query)
 };
 
 const editTaskQuery = (task: TaskInterface) => {
   const sql = {
-    text: `UPDATE tasks 
-          SET title = $2, 
-          description = $3, 
-          project_id = $4,
-          priority_id = $5,
-          section_id = $6
-          WHERE id = $1
-          RETURNING *`,
+    text: `UPDATE tasks SET title = $2, description = $3, project_id = $4,
+          priority_id = $5, section_id = $6 WHERE id = $1 RETURNING *`,
     values: [
       task.id,
       task.title,
@@ -53,31 +61,16 @@ const editTaskQuery = (task: TaskInterface) => {
 
 const deleteTaskByIdQuery = (taskId: number) => {
   const sql: Query = {
-    text: 'DELETE FROM tasks WHERE id = $1',
+    text: 'DELETE FROM tasks WHERE id = $1 RETURNING *',
     values: [taskId],
-  }
+  };
   return connection.query(sql);
 };
 
-const getTaskByProjectAndSectionQuery = (projectId: number, sectionId: number) => {
-  const query:Query = {
-    text: `SELECT t.id, t.title, t.description, pr.priority, s.section, p.title, t.created_at
-    FROM tasks t JOIN projects p
-    ON t.project_id = p.id
-    JOIN sections s
-    ON t.section_id = s.id
-    JOIN priorities pr
-    ON t.priority_id = pr.id
-    WHERE p.id = $1 AND s.id = $2`,
-    values: [projectId, sectionId],
-  }
-  return connection.query(query)
-}
-
 export {
   addTaskQuery,
-  getTasksByUserId,
+  getTasksByUserIdQuery,
+  getTaskByProjectAndSectionQuery,
   editTaskQuery,
   deleteTaskByIdQuery,
-  getTaskByProjectAndSectionQuery,
 };
