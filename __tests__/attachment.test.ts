@@ -1,68 +1,57 @@
-import { expect } from 'chai';
 import request from 'supertest';
 import app from '../src/app';
 import dotenv from 'dotenv';
-import { log } from 'console';
 import connection from '../src/database/config';
-
 
 dotenv.config();
 
 describe('POST /project/:id/attachments', () => {
-    it('should add an attachment', (done) => {
+    it('should add an attachment', async () => {
         const attachment = {
             attachS3: 'https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg',
         };
-        request(app)
+
+        const response = await request(app)
             .post('/project/2/attachments?taskId=1')
             .set('cookie', `token=${process.env.token}`)
-            .send(attachment)
-            .expect(201)
-            .end((err, res) => {
-                if (err) return done(err);
-                expect(res.body.message).to.equal('Add attachment successfully');
-                expect(res.body.data).to.be.an('array');
-                expect(res.body.data[0].attach_s3).to.equal('https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg');
-                expect(res.body.data[0].task_id).to.equal(1);
-                done();
-            });
+            .send(attachment);
+
+        expect(response.status).toBe(201);
+        expect(response.body.message).toBe('Add attachment successfully');
+        expect(Array.isArray(response.body.data)).toBe(true);
+        expect(response.body.data[0].attach_s3).toBe('https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg');
+        expect(response.body.data[0].task_id).toBe(1);
     });
 
-
-    it('should return an error if validation fails', (done) => {
+    it('should return an error if validation fails', async () => {
         const attachment = {
             attachSs3: 1,
         };
-        request(app)
+
+        const response = await request(app)
             .post('/project/2/attachments?taskId=1')
             .set('cookie', `token=${process.env.token}`)
-            .send(attachment)
-            .expect(500)
-            .end((err, res) => {
-                if (err) return done(err);
-                expect(res.body.message).to.equal('Server Error');
-                done();
-            });
+            .send(attachment);
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toBe('Server Error');
     });
 });
 
 describe('GET /project/:id/attachments', () => {
-    it('should fetch attachments for a project', (done) => {
+    it('should fetch attachments for a project', async () => {
         const projectId = 2;
-        request(app)
-            .get(`/project/${projectId}/attachments`)
-            .set('cookie', `token=${process.env.token}`)
-            .expect(200)
-            .end((err, res) => {
-                if (err) return done(err);
-                log(res.body.message);
-                expect(res.body.message).to.equal('Fetch attachment successfully');
-                expect(res.body.data).to.be.an('array');
-                done();
-            });
-    });
 
+        const response = await request(app)
+            .get(`/project/${projectId}/attachments`)
+            .set('cookie', `token=${process.env.token}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('Fetch attachment successfully');
+        expect(Array.isArray(response.body.data)).toBe(true);
+    });
 });
+
 afterAll(() => {
-connection.end();
+    connection.end();
 });
