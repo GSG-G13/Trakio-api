@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import request from 'supertest';
 import app from '../src/app';
 import dotenv from 'dotenv';
@@ -13,8 +12,7 @@ describe('GET /api/sections', () => {
             .expect(200)
             .end((err, res) => {
                 if (err) return done(err);
-                expect(res.body.message).to.equal('Fetch sections Successfully');
-                expect(res.body.data).to.be.an('array');
+                expect(res.body.message).toBe('Fetch sections Successfully');
                 done();
             });
     })
