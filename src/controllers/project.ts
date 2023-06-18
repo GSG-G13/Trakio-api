@@ -45,8 +45,10 @@ const getProjectsController = (req: TokenRequest, res: Response, next: NextFunct
 };
 
 const getProjectByProjectIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = req.params.id
-  getProjectByProjectIDQuery(+projectId)
+  const projectId = Number(req.params.id);
+
+  if (isNaN(projectId)) throw new CustomError(400, 'Bad Request');
+  getProjectByProjectIDQuery(projectId)
     .then((data: QueryResult) => res.status(200).json({
       message: 'Fetch project detail successfully',
       data: data.rows,
@@ -55,9 +57,10 @@ const getProjectByProjectIdController = (req: TokenRequest, res: Response, next:
 };
 
 const deleteProjectController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = +req.params.id!;
+  const projectId = Number(req.params.id);
 
-  deleteProjectByIdQuery(+projectId)
+  if (isNaN(projectId)) throw new CustomError(400, 'Bad Request');
+  deleteProjectByIdQuery(projectId)
     .then((data:QueryResult) => {
       res.status(200).json({
         message: 'Project deleted successfully',
