@@ -2,7 +2,7 @@ import connection from '../config';
 import { Query, TaskInterface } from '../../interfaces';
 
 const addTaskQuery = ({
-  title, description, priorityId, projectId, sectionId, dueDate,
+  title, description, priorityId, projectId, sectionId, dueDate, userId,
 }: {
   title: string,
   description: string,
@@ -10,12 +10,13 @@ const addTaskQuery = ({
   projectId: number,
   sectionId: number,
   dueDate: string,
+  userId: number,
 }) => {
   const sql: Query = {
-    text: `INSERT INTO tasks (title, description, priority_id, project_id, section_id, due_date)
-            VALUES($1, $2, $3, $4, $5, $6)
+    text: `INSERT INTO tasks (title, description, priority_id, project_id, section_id, due_date, user_id)
+            VALUES($1, $2, $3, $4, $5, $6, $7)
             RETURNING title, description, priority_id, project_id, section_id, due_date`,
-    values: [title, description, priorityId, projectId, sectionId, dueDate],
+    values: [title, description, priorityId, projectId, sectionId, dueDate, userId],
   };
   return connection.query(sql);
 };
@@ -28,7 +29,7 @@ const getTasksByUserIdQuery = (userId:number) => {
   return connection.query(query)
 };
 
-const getTaskByProjectAndSectionQuery = (projectId: number, sectionId: number) => {
+const getTaskByProjectAndSectionQuery = (projectId: number) => {
   const query: Query = {
     text: `SELECT t.id, t.title, t.description, pr.priority, s.section, p.title, t.created_at
           FROM tasks t JOIN projects p
@@ -37,8 +38,8 @@ const getTaskByProjectAndSectionQuery = (projectId: number, sectionId: number) =
           ON t.section_id = s.id
           JOIN priorities pr
           ON t.priority_id = pr.id
-          WHERE p.id = $1 AND s.id = $2`,
-    values: [projectId, sectionId],
+          WHERE p.id = $1`,
+    values: [projectId],
   };
   return connection.query(query)
 };
@@ -46,7 +47,7 @@ const getTaskByProjectAndSectionQuery = (projectId: number, sectionId: number) =
 const editTaskQuery = (task: TaskInterface) => {
   const sql = {
     text: `UPDATE tasks SET title = $2, description = $3, project_id = $4,
-          priority_id = $5, section_id = $6 WHERE id = $1 RETURNING *`,
+          priority_id = $5, section_id = $6, user_id = $7 WHERE id = $1 RETURNING *`,
     values: [
       task.id,
       task.title,
@@ -54,6 +55,7 @@ const editTaskQuery = (task: TaskInterface) => {
       task.projectId,
       task.priorityId,
       task.sectionId,
+      task.userId,
     ],
   };
   return connection.query(sql);

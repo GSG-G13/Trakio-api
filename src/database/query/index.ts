@@ -18,8 +18,8 @@ import {
   emailExistsQuery,
 } from './user';
 import getSectionsQuery from './section';
-import { addAttachmentQuery, getAttachmentQuery } from './attachment';
-import getMembersByProjectQuery from './members';
+import { getAttachmentQuery, addAttachmentQuery } from './attachment';
+import { getMembersByProjectQuery, checkForMemberInProject } from './members';
 
 export {
   addProjectQuery,
@@ -39,4 +39,5 @@ export {
   addAttachmentQuery,
   getAttachmentQuery,
   getMembersByProjectQuery,
+  checkForMemberInProject,
 };

@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
 import { getMembersByProjectIdController } from '../controllers';
-import { checkAuth } from '../middleware';
+import { checkAuth, checkMember } from '../middleware';
 
 const membersRouter: Router = express.Router();
 
-membersRouter.get('/project/members/:id', checkAuth, getMembersByProjectIdController);
+membersRouter.get('/project/:id/members', checkAuth, checkMember, getMembersByProjectIdController);
 
 export default membersRouter;

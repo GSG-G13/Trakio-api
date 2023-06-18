@@ -22,9 +22,9 @@ const addAttachmentController = (req: TokenRequest, res: Response, next: NextFun
 };
 
 const getAttachmentController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const taskId = +req.params.id!;
+  const projectId = +req.params.id!;
 
-  getAttachmentQuery(taskId)
+  getAttachmentQuery(+projectId!)
     .then((data: QueryResult) => {
       res.status(200).json({
         message: 'Fetch attachment successfully',
