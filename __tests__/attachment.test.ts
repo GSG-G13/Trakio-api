@@ -1,7 +1,6 @@
 import request from 'supertest';
 import app from '../src/app';
 import dotenv from 'dotenv';
-import { log } from 'console';
 import connection from '../src/database/config';
 
 
@@ -53,7 +52,6 @@ describe('GET /project/:id/attachments', () => {
             .expect(200)
             .end((err, res) => {
                 if (err) return done(err);
-                log(res.body.message);
                 expect(res.body.message).toBe('Fetch attachment successfully');
                 done();
             });
