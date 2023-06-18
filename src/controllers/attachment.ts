@@ -5,7 +5,7 @@ import { TokenRequest, AttachmentInterface } from '../interfaces';
 import { attachmentSchema, CustomError } from '../helpers';
 
 const addAttachmentController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const taskId = +req.params.id!;
+  const taskId = +req.query.taskId!;
   console.log(taskId, 'test task');
   const { attachS3 }: AttachmentInterface = req.body;
   const userId = req.userData?.id;
