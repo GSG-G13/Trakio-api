@@ -9,7 +9,7 @@ import {
 import {
   CustomError, signToken, signupSchema, loginSchema,
 } from '../helpers';
-import { TokenRequest, userData } from '../interfaces';
+import { TokenRequest, userData, joiInterface } from '../interfaces';
 
 const signupController = (req: Request, res: Response, next: NextFunction): void => {
   const {
@@ -37,11 +37,17 @@ const signupController = (req: Request, res: Response, next: NextFunction): void
     })))
     .then((data) => data.rows[0])
     .then((row) => signToken(row))
-    .then((token) => res.cookie('token', token).json({
+    .then((token) => res.status(201).cookie('token', token).json({
       message: 'Created successfully',
       data: [{ name, email, phone }],
     }))
-    .catch((error) => next(error));
+    .catch((err: CustomError | joiInterface) => {
+      if ('isJoi' in err) {
+        next(new CustomError(406, err.details[0].message));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const loginController = (req: TokenRequest, res: Response, next: NextFunction) => {
@@ -68,14 +74,17 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
         email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
       });
     })
-    .then((token) => res.cookie('token', token).json({
+    .then((token) => res.status(200).cookie('token', token).json({
       message: 'Logged In Successfully',
       data: [userInfo],
     }))
-    .then((token) => {
-      log(token, 'created');
-    })
-    .catch((error) => next(error));
+    .catch((err: CustomError | joiInterface) => {
+      if ('isJoi' in err) {
+        next(new CustomError(406, err.details[0].message));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const logoutController = (req: Request, res: Response) => {

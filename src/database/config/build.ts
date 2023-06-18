@@ -5,8 +5,8 @@ import connection from './connection';
 const buildDatabase = () => {
   const buildFile = readFileSync(join(__dirname, 'build.sql')).toString();
   const fakeDataFile = readFileSync(join(__dirname, 'fakeData.sql')).toString();
-  connection.query(buildFile + fakeDataFile)
-    .catch(() => { throw Error('DB connection error') })
+  return connection.query(buildFile + fakeDataFile)
+    .catch((err) => { throw err })
 }
 
 export default buildDatabase;
