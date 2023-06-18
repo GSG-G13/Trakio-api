@@ -1,5 +1,6 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
+import { log } from 'console';
 import {
   signupQuery,
   getUserDataQuery,
@@ -8,7 +9,7 @@ import {
 import {
   CustomError, signToken, signupSchema, loginSchema,
 } from '../helpers';
-import { TokenRequest, joiInterface, userData } from '../interfaces';
+import { TokenRequest, userData } from '../interfaces';
 
 const signupController = (req: Request, res: Response, next: NextFunction): void => {
   const {
@@ -40,7 +41,7 @@ const signupController = (req: Request, res: Response, next: NextFunction): void
       message: 'Created successfully',
       data: [{ name, email, phone }],
     }))
-    .catch((error)=>next(error));
+    .catch((error) => next(error));
 };
 
 const loginController = (req: TokenRequest, res: Response, next: NextFunction) => {
@@ -71,7 +72,10 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
       message: 'Logged In Successfully',
       data: [userInfo],
     }))
-    .catch((error)=>next(error));
+    .then((token) => {
+      log(token, 'created');
+    })
+    .catch((error) => next(error));
 };
 
 const logoutController = (req: Request, res: Response) => {

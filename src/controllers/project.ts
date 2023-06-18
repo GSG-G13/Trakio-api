@@ -6,9 +6,10 @@ import {
   getProjectsQuery,
   getProjectByProjectIDQuery,
   deleteProjectByIdQuery,
-} from '../database';
+} from '../database/query/projects';
 import { TokenRequest, ProjectData } from '../interfaces';
-import { CustomError, projectSchema } from '../helpers';
+import { CustomError } from '../helpers';
+import { projectSchema } from '../helpers/validation';
 
 const addProjectController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const userId = req.userData?.id;
@@ -44,8 +45,7 @@ const getProjectsController = (req: TokenRequest, res: Response, next: NextFunct
 };
 
 const getProjectByProjectIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const projectId = +req.params.id!;
-
+  const projectId = req.params.id
   getProjectByProjectIDQuery(+projectId)
     .then((data: QueryResult) => res.status(200).json({
       message: 'Fetch project detail successfully',

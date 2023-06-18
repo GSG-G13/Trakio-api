@@ -6,6 +6,7 @@ import { attachmentSchema, CustomError } from '../helpers';
 
 const addAttachmentController = (req: TokenRequest, res: Response, next: NextFunction) => {
   const taskId = +req.params.id!;
+  console.log(taskId, 'test task');
   const { attachS3 }: AttachmentInterface = req.body;
   const userId = req.userData?.id;
 
@@ -22,9 +23,9 @@ const addAttachmentController = (req: TokenRequest, res: Response, next: NextFun
 };
 
 const getAttachmentController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  const taskId = +req.params.id!;
+  const projectId = +req.params.id!;
 
-  getAttachmentQuery(taskId)
+  getAttachmentQuery(+projectId!)
     .then((data: QueryResult) => {
       res.status(200).json({
         message: 'Fetch attachment successfully',
