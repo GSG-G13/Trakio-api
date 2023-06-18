@@ -1,17 +1,17 @@
-import express, { Router } from 'express'
+import express, { Router } from 'express';
 import {
   addProjectController,
-  getProjects,
-  deleteProject,
-  getProjectByProjectId,
+  getProjectsController,
+  getProjectByProjectIdController,
+  deleteProjectController,
 } from '../controllers';
-import { authCheck } from '../middleware';
+import { checkMember, checkManager, checkAuth } from '../middleware'
 
 const projectRouter: Router = express.Router();
 
-projectRouter.post('/projects', authCheck, addProjectController);
-projectRouter.get('/projects', authCheck, getProjects);
-projectRouter.get('/projects/details', authCheck, getProjectByProjectId);
-projectRouter.delete('/projects/:projectId', authCheck, deleteProject);
+projectRouter.post('/project', checkAuth, addProjectController);
+projectRouter.get('/projects', checkAuth, getProjectsController);
+projectRouter.get('/project/:id', checkAuth, checkMember, getProjectByProjectIdController);
+projectRouter.delete('/project/:id', checkAuth, checkMember, checkManager, deleteProjectController);
 
-export default projectRouter
+export default projectRouter;

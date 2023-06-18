@@ -1,3 +1,39 @@
-import { getUserData, addProjectQuery } from './query';
+import {
+  addProjectQuery,
+  addProjectUserQuery,
+  getProjectsQuery,
+  getProjectByProjectIDQuery,
+  deleteProjectByIdQuery,
+  addTaskQuery,
+  getTasksByUserIdQuery,
+  getTaskByProjectAndSectionQuery,
+  editTaskQuery,
+  deleteTaskByIdQuery,
+  signupQuery,
+  getUserDataQuery,
+  emailExistsQuery,
+  getSectionsQuery,
+  addAttachmentQuery,
+  getAttachmentQuery,
+  getMembersByProjectQuery,
+} from './query';
 
-export { getUserData, addProjectQuery };
+export {
+  addProjectQuery,
+  addProjectUserQuery,
+  getProjectsQuery,
+  getProjectByProjectIDQuery,
+  deleteProjectByIdQuery,
+  addTaskQuery,
+  getTasksByUserIdQuery,
+  getTaskByProjectAndSectionQuery,
+  editTaskQuery,
+  deleteTaskByIdQuery,
+  signupQuery,
+  getUserDataQuery,
+  emailExistsQuery,
+  getSectionsQuery,
+  addAttachmentQuery,
+  getAttachmentQuery,
+  getMembersByProjectQuery,
+};

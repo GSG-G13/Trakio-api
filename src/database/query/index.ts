@@ -3,40 +3,41 @@ import {
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,
-  deleteProjectById,
+  deleteProjectByIdQuery,
 } from './projects';
 import {
   addTaskQuery,
-  getTasksByUserId,
+  getTasksByUserIdQuery,
+  getTaskByProjectAndSectionQuery,
   editTaskQuery,
   deleteTaskByIdQuery,
-  getTaskByProjectAndSectionQuery,
 } from './tasks';
 import {
-  getUserData,
-  emailExists,
   signupQuery,
+  getUserDataQuery,
+  emailExistsQuery,
 } from './user';
 import getSectionsQuery from './section';
 import { getAttachmentQuery, addAttachmentQuery } from './attachment';
-import getMembersByProjectQuery from './members';
+import { getMembersByProjectQuery, checkForMemberInProject } from './members';
 
 export {
   addProjectQuery,
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,
-  deleteProjectById,
+  deleteProjectByIdQuery,
   addTaskQuery,
-  getTasksByUserId,
+  getTasksByUserIdQuery,
+  getTaskByProjectAndSectionQuery,
   editTaskQuery,
   deleteTaskByIdQuery,
-  getUserData,
-  emailExists,
   signupQuery,
-  getTaskByProjectAndSectionQuery,
+  getUserDataQuery,
+  emailExistsQuery,
   getSectionsQuery,
-  getAttachmentQuery,
   addAttachmentQuery,
+  getAttachmentQuery,
   getMembersByProjectQuery,
+  checkForMemberInProject,
 };

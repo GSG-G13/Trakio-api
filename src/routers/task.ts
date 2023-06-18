@@ -1,18 +1,19 @@
 import express, { Router } from 'express';
-import { authCheck } from '../middleware';
+import { checkAuth, checkMember, checkManager } from '../middleware';
 import {
-  addTask,
-  getTasks,
-  deleteTaskById,
-  editTaskController,
+  addTaskController,
+  getTasksController,
   getTasksByProjectAndSection,
+  editTaskController,
+  deleteTaskByIdController,
 } from '../controllers';
 
 const taskRouter: Router = express.Router();
-taskRouter.post('/tasks', authCheck, addTask);
-taskRouter.delete('/task', authCheck, deleteTaskById);
-taskRouter.get('/tasks', authCheck, getTasks);
-taskRouter.put('/task', authCheck, editTaskController)
-taskRouter.get('/project/tasks/:projectId', authCheck, getTasksByProjectAndSection)
+
+taskRouter.post('/project/:id/task', checkAuth, checkMember, checkManager, addTaskController);
+taskRouter.get('/tasks', checkAuth, getTasksController);
+taskRouter.get('/project/:id/task', checkAuth, checkMember, getTasksByProjectAndSection);
+taskRouter.put('/project/:id/task', checkAuth, checkMember, checkManager, editTaskController); // it has taskId in the query
+taskRouter.delete('/project/:id/task', checkAuth, checkMember, checkManager, deleteTaskByIdController); // it has taskId in the query
 
 export default taskRouter;

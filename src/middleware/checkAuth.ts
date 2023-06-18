@@ -1,8 +1,8 @@
 import { Response, NextFunction } from 'express';
-import { verifyToken, CustomError } from '../helper';
+import { verifyToken, CustomError } from '../helpers';
 import { TokenRequest, userData } from '../interfaces';
 
-const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {
+const checkAuth = (req:TokenRequest, res: Response, next:NextFunction) => {
   const { token } = req.cookies;
   if (!token) {
     next(new CustomError(401, 'forbidden'));
@@ -19,4 +19,4 @@ const authCheck = (req:TokenRequest, res: Response, next:NextFunction) => {
     });
 };
 
-export default authCheck;
+export default checkAuth;
