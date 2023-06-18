@@ -1,5 +1,6 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
+import { log } from 'console';
 import {
   signupQuery,
   getUserDataQuery,
