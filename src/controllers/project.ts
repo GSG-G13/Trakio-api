@@ -7,7 +7,7 @@ import {
   getProjectByProjectIDQuery,
   deleteProjectByIdQuery,
 } from '../database/query/projects';
-import { TokenRequest, ProjectData } from '../interfaces';
+import { TokenRequest, ProjectData, joiInterface } from '../interfaces';
 import { CustomError } from '../helpers';
 import { projectSchema } from '../helpers/validation';
 
@@ -28,7 +28,13 @@ const addProjectController = (req: TokenRequest, res: Response, next: NextFuncti
         data: [project],
       })
     })
-    .catch((error:Error) => next(error));
+    .catch((err: CustomError | joiInterface) => {
+      if ('isJoi' in err) {
+        next(new CustomError(406, err.details[0].message));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const getProjectsController = (req: TokenRequest, res: Response, next: NextFunction) => {
