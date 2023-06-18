@@ -27,7 +27,7 @@ const addProjectController = (req: TokenRequest, res: Response, next: NextFuncti
         data: [project],
       })
     })
-    .catch(() => next(new CustomError(500, 'server Error')));
+    .catch((error:Error) => next(error));
 };
 
 const getProjectsController = (req: TokenRequest, res: Response, next: NextFunction) => {
