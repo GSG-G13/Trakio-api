@@ -20,7 +20,8 @@
     "@typescript-eslint/no-explicit-any": "error",
     "import/extensions": "off",
     "semi": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "no-restricted-globals": "off"
   },
   "ignorePatterns": ["**/__tests__/*.ts"]
 }
