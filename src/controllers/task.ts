@@ -7,11 +7,14 @@ import {
   editTaskQuery,
   deleteTaskByIdQuery,
 } from '../database';
-import { TokenRequest, TaskInterface } from '../interfaces';
+import { TokenRequest, TaskInterface, joiInterface } from '../interfaces';
 import { taskSchema, CustomError } from '../helpers';
+import { addProjectUserQuery, checkForMemberInProject } from '../database/query';
 
 const addTaskController = (req: Request, res: Response, next: NextFunction) => {
   const projectId = Number(req.params.id);
+  if (isNaN(projectId)) throw new CustomError(406, 'Bad Request')
+  let taskData: TaskInterface;
   const {
     title, description, userId, sectionId, dueDate, priorityId,
   }: TaskInterface = req.body;
@@ -28,15 +31,29 @@ const addTaskController = (req: Request, res: Response, next: NextFunction) => {
   }, { abortEarly: true })
     .then((data) => addTaskQuery(data))
     .then((data: QueryResult) => {
-      const taskData = data.rows[0] as TaskInterface;
-      res.status(201).json({
-        message: 'Task Created Successfully',
-        data: [
-          taskData,
-        ],
-      })
+      taskData = data.rows[0] as TaskInterface;
+      return Promise.resolve(taskData);
     })
-    .catch((err) => next(new CustomError(500, err)));
+    .then(() => checkForMemberInProject({ userId, projectId }))
+    .then((data: QueryResult) => {
+      if (!data.rows.length) {
+        return addProjectUserQuery(userId, projectId, 2)
+      }
+      return Promise.resolve(data);
+    })
+    .then(() => res.status(201).json({
+      message: 'Task Created Successfully',
+      data: [
+        taskData,
+      ],
+    }))
+    .catch((err: CustomError | joiInterface) => {
+      if ('isJoi' in err) {
+        next(new CustomError(406, err.details[0].message));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const getTasksController = (req: TokenRequest, res: Response, next: NextFunction): void => {
