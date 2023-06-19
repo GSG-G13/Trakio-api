@@ -1,8 +1,5 @@
 import supertest from 'supertest';
 import dotenv from 'dotenv';
-import {
-  afterAll, beforeEach, describe, test, expect,
-} from '@jest/globals';
 import app from '../src/app';
 import connection from '../src/database/config';
 import buildDatabase from '../src/database/config/build';
@@ -52,16 +49,20 @@ describe('Check route /tasks => get tasks ', () => {
 
   test('Should return 200 when add task', (done) => {
     supertest(app)
-      .post('/project/10/task')
+      .post('/project/2/task')
       .set('cookie', `token=${process.env.TOKEN}`)
       .send({
-        title: 'add query tasks',
+        title: 'FIRST-TASK',
+        description: 'my first task description',
+        dueDate: '2023-07-2',
+        userId: 4,
+        priorityId: 1,
+        sectionId: 1,
       })
-      .expect(200)
+      .expect(201)
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body.message).toEqual('Task added successfully');
-        expect(res.body.data).toBe('array');
         expect(res.body.data[1].title).toEqual('add query tasks');
         expect(res.body.data[1].project_id).toEqual(2);
         done();
