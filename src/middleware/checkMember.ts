@@ -5,13 +5,14 @@ import { checkForMemberInProject } from '../database/query'
 import { CustomError } from '../helpers'
 
 const checkMember = (req:RoleRequest, res: Response, next: NextFunction) => {
-  const userId = req.userData!.id
-  const projectId = req.params.id
+  const userId = Number(req.userData!.id)
+  const projectId = Number(req.params.id)
 
+  if (isNaN(userId) || isNaN(projectId)) throw new CustomError(406, 'Bad Request');
   let role: roleType
-  checkForMemberInProject(+userId!, +projectId!)
+  checkForMemberInProject({ userId, projectId })
     .then((data: QueryResult) => {
-      if (data.rows.length === 0) {
+      if (!data.rows.length) {
         throw new CustomError(403, 'You are not a member')
       }
       role = data.rows[0].role
