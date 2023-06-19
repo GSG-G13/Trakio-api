@@ -6,7 +6,7 @@ const checkManager = (req: RoleRequest, res: Response, next: NextFunction) => {
   if (req.userRole === 'manager') {
     next()
   } else {
-    next(new CustomError(403, 'Only the project manage has access to this function'))
+    next(new CustomError(401, 'Only the project manager has access to this function'))
   }
 }
 
