@@ -13,6 +13,7 @@ import { addProjectUserQuery, checkForMemberInProject } from '../database/query'
 
 const addTaskController = (req: Request, res: Response, next: NextFunction) => {
   const projectId = Number(req.params.id);
+  if (isNaN(projectId)) throw new CustomError(406, 'Bad Request')
   let taskData: TaskInterface;
   const {
     title, description, userId, sectionId, dueDate, priorityId,
@@ -33,9 +34,9 @@ const addTaskController = (req: Request, res: Response, next: NextFunction) => {
       taskData = data.rows[0] as TaskInterface;
       return Promise.resolve(taskData);
     })
-    .then(() => checkForMemberInProject(userId, projectId))
+    .then(() => checkForMemberInProject({ userId, projectId }))
     .then((data: QueryResult) => {
-      if (data.rows.length === 0) {
+      if (!data.rows.length) {
         return addProjectUserQuery(userId, projectId, 2)
       }
       return Promise.resolve(data);

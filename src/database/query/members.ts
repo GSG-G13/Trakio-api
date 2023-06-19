@@ -14,7 +14,10 @@ const getMembersByProjectQuery = (projectId: number) => {
   return connection.query(query);
 }
 
-const checkForMemberInProject = (userId: number, projectId:number) => {
+const checkForMemberInProject = ({ userId, projectId }:{
+  userId: number,
+  projectId: number
+}) => {
   const query:Query = {
     text: `SELECT r.role
     FROM project_users pu
