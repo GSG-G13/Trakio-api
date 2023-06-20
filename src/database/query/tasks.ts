@@ -23,7 +23,16 @@ const addTaskQuery = ({
 
 const getTasksByUserIdQuery = (userId:number) => {
   const query:Query = {
-    text: 'SELECT * FROM tasks WHERE user_id = $1',
+    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id, p.title, pr.priority, pr.color, s.section FROM tasks t 
+    JOIN projects p
+    ON t.project_id = p.id
+    JOIN sections s
+    ON t.section_id = s.id
+    JOIN priorities pr
+    ON t.priority_id = pr.id
+    JOIN users u
+    ON t.user_id = u.id
+    WHERE u.id = $1`,
     values: [userId],
   };
   return connection.query(query)
