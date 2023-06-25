@@ -9,7 +9,7 @@ import membersRouter from './members';
 
 const router:Router = express.Router();
 
-router.use(authRouter);
+router.use('/api', authRouter);
 router.use(projectRouter);
 router.use(taskRouter);
 router.use(sectionRouter);
