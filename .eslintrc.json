@@ -21,7 +21,8 @@
     "import/extensions": "off",
     "semi": "off",
     "linebreak-style": "off",
-    "no-restricted-globals": "off"
+    "no-restricted-globals": "off",
+    "import/no-extraneous-dependencies": 0
   },
   "ignorePatterns": ["**/__tests__/*.ts"]
 }
