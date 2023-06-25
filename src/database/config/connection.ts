@@ -3,11 +3,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const db: string = process.env.NODE_ENV === 'production' ? process.env.DB_URL! : process.env.DEV_DB_URL!
+const db: string = process.env.NODE_ENV === 'development' ? process.env.DEV_DB_URL! : process.env.DB_URL!
 
 const options: PoolConfig = {
   connectionString: db,
-  ssl: process.env.NODE_ENV === 'production',
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 const connection: Pool = new Pool(options);
