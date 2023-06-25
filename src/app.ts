@@ -17,7 +17,7 @@ app.use([
 ]);
 
 // eslint-disable-next-line no-unused-expressions
-process.env.Node_ENV === 'development' && app.use(morgan('dev'))
-app.use(router);
+process.env.Node_ENV === 'development' && app.use(morgan('dev'));
+app.use('/api', router);
 
 export default app;
