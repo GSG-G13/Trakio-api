@@ -7,7 +7,7 @@ import {
   deleteAccountQuery,
 } from '../database';
 import {
-  CustomError, signToken, signupSchema, loginSchema, verifyToken,
+  CustomError, signToken, signupSchema, loginSchema,
 } from '../helpers';
 import { TokenRequest, userData, joiInterface } from '../interfaces';
 
@@ -92,15 +92,8 @@ const logoutController = (req: Request, res: Response) => {
 };
 
 const deleteAccountController = (req: TokenRequest, res: Response, next: NextFunction): void => {
-  const token = req.headers.cookie!.split('=')[1];
-  verifyToken(token)
-    .then((decodedToken) => {
-      if (!decodedToken || !(decodedToken as { id: number }).id) {
-        throw new CustomError(401, 'Unauthorized');
-      }
-      const userId: number = (decodedToken as { id: number }).id;
-      return deleteAccountQuery(userId);
-    })
+  const userId = req.userData?.id;
+  deleteAccountQuery(+userId!)
     .then(() => {
       res.json({ message: 'Account deleted successfully' });
     })
