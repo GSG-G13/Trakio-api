@@ -4,6 +4,7 @@ import {
   signupQuery,
   getUserDataQuery,
   emailExistsQuery,
+  deleteAccountQuery,
 } from '../database';
 import {
   CustomError, signToken, signupSchema, loginSchema,
@@ -90,4 +91,17 @@ const logoutController = (req: Request, res: Response) => {
   res.clearCookie('token').json({ message: 'Logged Out Successfully' });
 };
 
-export { signupController, loginController, logoutController };
+const deleteAccountController = (req: TokenRequest, res: Response, next: NextFunction): void => {
+  const userId = req.userData?.id;
+  deleteAccountQuery(+userId!)
+    .then(() => {
+      res.json({ message: 'Account deleted successfully' });
+    })
+    .catch((err: CustomError) => {
+      next(err);
+    });
+};
+
+export {
+  signupController, loginController, logoutController, deleteAccountController,
+};
