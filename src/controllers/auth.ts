@@ -95,7 +95,7 @@ const deleteAccountController = (req: TokenRequest, res: Response, next: NextFun
   const userId = req.userData?.id;
   deleteAccountQuery(+userId!)
     .then(() => {
-      res.json({ message: 'Account deleted successfully' });
+      res.clearCookie('token').json({ message: 'Account deleted successfully' });
     })
     .catch((err: CustomError) => {
       next(err);
