@@ -2,6 +2,7 @@ import {
   signupController,
   loginController,
   logoutController,
+  deleteAccountController,
 } from './auth';
 import {
   addProjectController,
@@ -25,6 +26,7 @@ import getMembersByProjectIdController from './members';
 
 export {
   signupController,
+  deleteAccountController,
   loginController,
   logoutController,
   addProjectController,

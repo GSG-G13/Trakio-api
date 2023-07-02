@@ -34,8 +34,17 @@ const emailExistsQuery = (email:string) => {
   return connection.query(query);
 };
 
+const deleteAccountQuery = (userId: number) => {
+  const query: Query = {
+    text: 'DELETE FROM users WHERE id = $1;',
+    values: [userId],
+  };
+  return connection.query(query);
+};
+
 export {
   signupQuery,
   getUserDataQuery,
   emailExistsQuery,
+  deleteAccountQuery,
 };

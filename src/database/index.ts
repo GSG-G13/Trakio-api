@@ -16,10 +16,12 @@ import {
   addAttachmentQuery,
   getAttachmentQuery,
   getMembersByProjectQuery,
+  deleteAccountQuery,
 } from './query';
 
 export {
   addProjectQuery,
+  deleteAccountQuery,
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,

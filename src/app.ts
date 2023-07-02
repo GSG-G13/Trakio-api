@@ -8,7 +8,8 @@ app.use([
   express.json(),
   express.urlencoded({ extended: false }),
   cookieParser(),
-  router,
 ]);
+
+app.use('/api', router);
 
 export default app;

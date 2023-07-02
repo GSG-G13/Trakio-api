@@ -4,9 +4,10 @@ import {
   signupQuery,
   getUserDataQuery,
   emailExistsQuery,
+  deleteAccountQuery,
 } from '../database';
 import {
-  CustomError, signToken, signupSchema, loginSchema,
+  CustomError, signToken, signupSchema, loginSchema, verifyToken,
 } from '../helpers';
 import { TokenRequest, userData, joiInterface } from '../interfaces';
 
@@ -90,4 +91,24 @@ const logoutController = (req: Request, res: Response) => {
   res.clearCookie('token').json({ message: 'Logged Out Successfully' });
 };
 
-export { signupController, loginController, logoutController };
+const deleteAccountController = (req: TokenRequest, res: Response, next: NextFunction): void => {
+  const token = req.headers.cookie!.split('=')[1];
+  verifyToken(token)
+    .then((decodedToken) => {
+      if (!decodedToken || !(decodedToken as { id: number }).id) {
+        throw new CustomError(401, 'Unauthorized');
+      }
+      const userId: number = (decodedToken as { id: number }).id;
+      return deleteAccountQuery(userId);
+    })
+    .then(() => {
+      res.json({ message: 'Account deleted successfully' });
+    })
+    .catch((err: CustomError) => {
+      next(err);
+    });
+};
+
+export {
+  signupController, loginController, logoutController, deleteAccountController,
+};

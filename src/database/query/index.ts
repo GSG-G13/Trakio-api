@@ -16,6 +16,7 @@ import {
   signupQuery,
   getUserDataQuery,
   emailExistsQuery,
+  deleteAccountQuery,
 } from './user';
 import getSectionsQuery from './section';
 import { getAttachmentQuery, addAttachmentQuery } from './attachment';
@@ -23,6 +24,7 @@ import { getMembersByProjectQuery, checkForMemberInProject } from './members';
 
 export {
   addProjectQuery,
+  deleteAccountQuery,
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,
