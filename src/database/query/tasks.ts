@@ -40,14 +40,16 @@ const getTasksByUserIdQuery = (userId:number) => {
 
 const getTaskByProjectAndSectionQuery = (projectId: number) => {
   const query: Query = {
-    text: `SELECT t.id, t.title, t.description, pr.priority, s.section, p.title, t.created_at
-          FROM tasks t JOIN projects p
-          ON t.project_id = p.id
-          JOIN sections s
-          ON t.section_id = s.id
-          JOIN priorities pr
-          ON t.priority_id = pr.id
-          WHERE p.id = $1`,
+    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, pr.priority, pr.color, s.section FROM tasks t 
+    JOIN projects p
+    ON t.project_id = p.id
+    JOIN sections s
+    ON t.section_id = s.id
+    JOIN priorities pr
+    ON t.priority_id = pr.id
+    JOIN users u
+    ON t.user_id = u.id
+    WHERE p.id = $1`,
     values: [projectId],
   };
   return connection.query(query)
