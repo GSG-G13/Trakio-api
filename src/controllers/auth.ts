@@ -102,6 +102,16 @@ const deleteAccountController = (req: TokenRequest, res: Response, next: NextFun
     });
 };
 
+const getUserDataController = (req: TokenRequest, res:Response) => {
+  res.status(200).json({
+    userData: req.userData,
+  })
+}
+
 export {
-  signupController, loginController, logoutController, deleteAccountController,
+  signupController,
+  loginController,
+  logoutController,
+  deleteAccountController,
+  getUserDataController,
 };

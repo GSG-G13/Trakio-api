@@ -3,6 +3,7 @@ import {
   loginController,
   logoutController,
   deleteAccountController,
+  getUserDataController,
 } from './auth';
 import {
   addProjectController,
@@ -42,4 +43,5 @@ export {
   addAttachmentController,
   getAttachmentController,
   getMembersByProjectIdController,
+  getUserDataController,
 };
