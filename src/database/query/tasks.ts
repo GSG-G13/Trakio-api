@@ -23,7 +23,7 @@ const addTaskQuery = ({
 
 const getTasksByUserIdQuery = (userId:number) => {
   const query:Query = {
-    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, pr.priority, pr.color, s.section FROM tasks t 
+    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, p.id AS project_id, pr.priority, pr.color, s.section FROM tasks t 
     JOIN projects p
     ON t.project_id = p.id
     JOIN sections s
@@ -40,7 +40,7 @@ const getTasksByUserIdQuery = (userId:number) => {
 
 const getTaskByProjectAndSectionQuery = (projectId: number) => {
   const query: Query = {
-    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, pr.priority, pr.color, s.section FROM tasks t 
+    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, p.id AS project_id, pr.priority, pr.color, s.section FROM tasks t 
     JOIN projects p
     ON t.project_id = p.id
     JOIN sections s
