@@ -29,4 +29,12 @@ const checkForMemberInProject = ({ userId, projectId }:{
   return connection.query(query)
 }
 
-export { getMembersByProjectQuery, checkForMemberInProject };
+const addMemberToProject = ({ userId, projectId }: {userId: number, projectId: number}) => {
+  const query: Query = {
+    text: 'INSERT INTO project_users (user_id, project_id, role_id) VALUES ($1, $2, 2)',
+    values: [userId, projectId],
+  }
+  return connection.query(query)
+}
+
+export { getMembersByProjectQuery, checkForMemberInProject, addMemberToProject };
