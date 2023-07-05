@@ -72,6 +72,19 @@ const editTaskQuery = (task: TaskInterface) => {
   return connection.query(sql);
 };
 
+const editSectionQuery = (task: TaskInterface) => {
+  const sql = {
+    text: `UPDATE tasks
+            SET section_id =$2
+            WHERE id = $1;`,
+    values: [
+      task.id,
+      task.sectionId,
+    ],
+  };
+  return connection.query(sql);
+};
+
 const deleteTaskByIdQuery = (taskId: number) => {
   const sql: Query = {
     text: 'DELETE FROM tasks WHERE id = $1 RETURNING *',
@@ -86,4 +99,5 @@ export {
   getTaskByProjectAndSectionQuery,
   editTaskQuery,
   deleteTaskByIdQuery,
+  editSectionQuery,
 };
