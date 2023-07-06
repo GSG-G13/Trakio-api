@@ -22,7 +22,9 @@
     "semi": "off",
     "linebreak-style": "off",
     "no-restricted-globals": "off",
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "no-plusplus": "off",
+    "consistent-return": "off"
   },
   "ignorePatterns": ["**/__tests__/*.ts"]
 }

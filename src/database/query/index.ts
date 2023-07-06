@@ -21,7 +21,7 @@ import {
 } from './user';
 import getSectionsQuery from './section';
 import { getAttachmentQuery, addAttachmentQuery } from './attachment';
-import { getMembersByProjectQuery, checkForMemberInProject } from './members';
+import { getMembersByProjectQuery, checkForMemberInProject, addMemberToProject } from './members';
 
 export {
   addProjectQuery,
@@ -44,4 +44,5 @@ export {
   getAttachmentQuery,
   getMembersByProjectQuery,
   checkForMemberInProject,
+  addMemberToProject,
 };

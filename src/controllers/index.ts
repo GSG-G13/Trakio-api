@@ -24,7 +24,7 @@ import {
   addAttachmentController,
   getAttachmentController,
 } from './attachment';
-import getMembersByProjectIdController from './members';
+import { getMembersByProjectIdController, addMember } from './members';
 
 export {
   signupController,
@@ -45,5 +45,6 @@ export {
   getAttachmentController,
   getMembersByProjectIdController,
   getUserDataController,
+  addMember,
   getAllUserController,
 };
