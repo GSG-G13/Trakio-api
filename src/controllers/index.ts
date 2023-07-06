@@ -4,6 +4,7 @@ import {
   logoutController,
   deleteAccountController,
   getUserDataController,
+  getAllUserController,
 } from './auth';
 import {
   addProjectController,
@@ -44,4 +45,5 @@ export {
   getAttachmentController,
   getMembersByProjectIdController,
   getUserDataController,
+  getAllUserController,
 };

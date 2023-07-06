@@ -26,6 +26,14 @@ const getUserDataQuery = (email: string) => {
   return connection.query(query);
 };
 
+const getAllUserQuery = () => {
+  const query: Query = {
+    text: 'SELECT id, name, email, phone FROM users ORDER BY name ASC;',
+    values: [],
+  };
+  return connection.query(query);
+};
+
 const emailExistsQuery = (email:string) => {
   const query:Query = {
     text: 'SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)',
@@ -47,4 +55,5 @@ export {
   getUserDataQuery,
   emailExistsQuery,
   deleteAccountQuery,
+  getAllUserQuery,
 };

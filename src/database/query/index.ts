@@ -15,6 +15,7 @@ import {
 import {
   signupQuery,
   getUserDataQuery,
+  getAllUserQuery,
   emailExistsQuery,
   deleteAccountQuery,
 } from './user';
@@ -25,6 +26,7 @@ import { getMembersByProjectQuery, checkForMemberInProject } from './members';
 export {
   addProjectQuery,
   deleteAccountQuery,
+  getAllUserQuery,
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,
