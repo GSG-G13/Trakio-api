@@ -26,10 +26,17 @@ const getUserDataQuery = (email: string) => {
   return connection.query(query);
 };
 
-const getAllUserQuery = () => {
+const getAllUserQuery = (id: number) => {
   const query: Query = {
-    text: 'SELECT id, name, email, phone FROM users ORDER BY name ASC;',
-    values: [],
+    text: `
+    SELECT users.id, users.name, users.email, users.phone 
+    FROM project_users 
+    join users 
+    ON  users.id = project_users.user_id
+    where project_users.project_id != $1
+    ORDER BY name ASC;
+    `,
+    values: [id],
   };
   return connection.query(query);
 };
