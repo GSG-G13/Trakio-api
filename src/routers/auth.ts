@@ -15,7 +15,7 @@ authRouter.post('/signup', signupController);
 authRouter.post('/login', loginController);
 authRouter.get('/logout', logoutController);
 authRouter.get('/user', checkAuth, getUserDataController)
-authRouter.get('/users', checkAuth, getAllUserController)
+authRouter.get('/project/:id/users', checkAuth, getAllUserController)
 authRouter.delete('/account', checkAuth, deleteAccountController);
 
 export default authRouter;

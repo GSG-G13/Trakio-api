@@ -111,7 +111,9 @@ const getUserDataController = (req: TokenRequest, res:Response) => {
 }
 
 const getAllUserController = (req: TokenRequest, res: Response, next: NextFunction) => {
-  getAllUserQuery()
+  const projectId = Number(req.params.id);
+
+  getAllUserQuery(projectId)
     .then((data: QueryResult) => {
       res.status(200).json({
         message: 'Fetch All Users Successfully',
