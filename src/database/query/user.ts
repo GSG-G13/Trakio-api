@@ -29,12 +29,12 @@ const getUserDataQuery = (email: string) => {
 const getAllUserQuery = (id: number) => {
   const query: Query = {
     text: `
-    SELECT DISTINCT users.id, users.name, users.email, users.phone 
-    FROM project_users 
-    join users 
-    ON  users.id = project_users.user_id
-    where project_users.project_id != $1
-    ORDER BY name ASC;
+    SELECT users.id, users.name, users.email, users.phone
+    FROM users
+    LEFT OUTER JOIN project_users ON users.id = project_users.user_id
+    AND project_users.project_id = $1
+    WHERE project_users.user_id IS NULL
+    ORDER BY users.name ASC;
     `,
     values: [id],
   };
