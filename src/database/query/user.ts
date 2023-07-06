@@ -29,7 +29,7 @@ const getUserDataQuery = (email: string) => {
 const getAllUserQuery = (id: number) => {
   const query: Query = {
     text: `
-    SELECT users.id, users.name, users.email, users.phone 
+    SELECT DISTINCT users.id, users.name, users.email, users.phone 
     FROM project_users 
     join users 
     ON  users.id = project_users.user_id
@@ -38,6 +38,7 @@ const getAllUserQuery = (id: number) => {
     `,
     values: [id],
   };
+
   return connection.query(query);
 };
 
