@@ -18,6 +18,7 @@ import {
   getMembersByProjectQuery,
   deleteAccountQuery,
   addMemberToProject,
+  getPrioritiesQuery,
 } from './query';
 
 export {
@@ -40,4 +41,5 @@ export {
   getAttachmentQuery,
   getMembersByProjectQuery,
   addMemberToProject,
+  getPrioritiesQuery,
 };

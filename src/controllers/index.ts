@@ -25,6 +25,7 @@ import {
   getAttachmentController,
 } from './attachment';
 import { getMembersByProjectIdController, addMember } from './members';
+import getPrioritiesController from './priority';
 
 export {
   signupController,
@@ -47,4 +48,5 @@ export {
   getUserDataController,
   addMember,
   getAllUserController,
+  getPrioritiesController,
 };
