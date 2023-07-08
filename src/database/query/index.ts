@@ -20,6 +20,7 @@ import {
   deleteAccountQuery,
 } from './user';
 import getSectionsQuery from './section';
+import getPrioritiesQuery from './priority';
 import { getAttachmentQuery, addAttachmentQuery } from './attachment';
 import { getMembersByProjectQuery, checkForMemberInProject, addMemberToProject } from './members';
 
@@ -45,4 +46,5 @@ export {
   getMembersByProjectQuery,
   checkForMemberInProject,
   addMemberToProject,
+  getPrioritiesQuery,
 };
