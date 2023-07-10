@@ -4,6 +4,7 @@ import {
   getProjectsQuery,
   getProjectByProjectIDQuery,
   deleteProjectByIdQuery,
+  updateProjectByIdQuery,
 } from './projects';
 import {
   addTaskQuery,
@@ -42,4 +43,5 @@ export {
   getAttachmentQuery,
   getMembersByProjectQuery,
   checkForMemberInProject,
+  updateProjectByIdQuery,
 };

@@ -10,6 +10,7 @@ import {
   getProjectsController,
   getProjectByProjectIdController,
   deleteProjectController,
+  updateProjectController,
 } from './project';
 import {
   addTaskController,
@@ -44,4 +45,5 @@ export {
   getAttachmentController,
   getMembersByProjectIdController,
   getUserDataController,
+  updateProjectController,
 };
