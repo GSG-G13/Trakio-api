@@ -16,16 +16,19 @@ import {
 import {
   signupQuery,
   getUserDataQuery,
+  getAllUserQuery,
   emailExistsQuery,
   deleteAccountQuery,
 } from './user';
 import getSectionsQuery from './section';
+import getPrioritiesQuery from './priority';
 import { getAttachmentQuery, addAttachmentQuery } from './attachment';
-import { getMembersByProjectQuery, checkForMemberInProject } from './members';
+import { getMembersByProjectQuery, checkForMemberInProject, addMemberToProject } from './members';
 
 export {
   addProjectQuery,
   deleteAccountQuery,
+  getAllUserQuery,
   addProjectUserQuery,
   getProjectsQuery,
   getProjectByProjectIDQuery,
@@ -44,4 +47,6 @@ export {
   getMembersByProjectQuery,
   checkForMemberInProject,
   updateProjectByIdQuery,
+  addMemberToProject,
+  getPrioritiesQuery,
 };

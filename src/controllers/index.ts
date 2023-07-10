@@ -4,6 +4,7 @@ import {
   logoutController,
   deleteAccountController,
   getUserDataController,
+  getAllUserController,
 } from './auth';
 import {
   addProjectController,
@@ -24,7 +25,8 @@ import {
   addAttachmentController,
   getAttachmentController,
 } from './attachment';
-import getMembersByProjectIdController from './members';
+import { getMembersByProjectIdController, addMember } from './members';
+import getPrioritiesController from './priority';
 
 export {
   signupController,
@@ -46,4 +48,7 @@ export {
   getMembersByProjectIdController,
   getUserDataController,
   updateProjectController,
+  addMember,
+  getAllUserController,
+  getPrioritiesController,
 };

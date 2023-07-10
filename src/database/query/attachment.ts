@@ -1,19 +1,20 @@
 import connection from '../config';
 import { Query } from '../../interfaces';
 
-const addAttachmentQuery = (attachS3: string, userId: number, taskId: number) => {
+// eslint-disable-next-line max-len
+const addAttachmentQuery = (attachS3: string, userId: number, taskId: number, attachmentName: string) => {
   const sql: Query = {
-    text: `INSERT INTO attachments (attach_s3, user_id, task_id)
-            VALUES ($1, $2, $3)
+    text: `INSERT INTO attachments (attach_s3, user_id, task_id, attachment_name)
+            VALUES ($1, $2, $3, $4)
             RETURNING *`,
-    values: [attachS3, userId, taskId],
+    values: [attachS3, userId, taskId, attachmentName],
   };
   return connection.query(sql);
 };
 
 const getAttachmentQuery = (projectId: number) => {
   const sql: Query = {
-    text: `SELECT a.attach_s3, t.id, t.title, u.id, u.name, u.email
+    text: `SELECT a.id, a.attachment_name, a.attach_s3, t.id AS taskId, t.title, u.id, u.name, u.email
             FROM attachments a
             JOIN tasks t
             ON(a.task_id = t.id)

@@ -8,7 +8,7 @@ import {
   deleteProjectByIdQuery,
   updateProjectByIdQuery,
 } from '../database/query/projects';
-import { TokenRequest, ProjectData } from '../interfaces';
+import { TokenRequest, ProjectData, RoleRequest } from '../interfaces';
 import { CustomError } from '../helpers';
 import { projectSchema } from '../helpers/validation';
 
@@ -45,7 +45,7 @@ const getProjectsController = (req: TokenRequest, res: Response, next: NextFunct
     .catch(() => next(new CustomError(500, 'Server Error')));
 };
 
-const getProjectByProjectIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
+const getProjectByProjectIdController = (req: RoleRequest, res: Response, next: NextFunction) => {
   const projectId = Number(req.params.id);
 
   if (isNaN(projectId)) throw new CustomError(400, 'Bad Request');
@@ -53,6 +53,7 @@ const getProjectByProjectIdController = (req: TokenRequest, res: Response, next:
     .then((data: QueryResult) => res.status(200).json({
       message: 'Fetch project detail successfully',
       data: data.rows,
+      manager: req.userRole === 'manager',
     }))
     .catch(() => next(new CustomError(500, 'server error')));
 };

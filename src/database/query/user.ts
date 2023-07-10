@@ -26,6 +26,22 @@ const getUserDataQuery = (email: string) => {
   return connection.query(query);
 };
 
+const getAllUserQuery = (id: number) => {
+  const query: Query = {
+    text: `
+    SELECT users.id, users.name, users.email, users.phone
+    FROM users
+    LEFT OUTER JOIN project_users ON users.id = project_users.user_id
+    AND project_users.project_id = $1
+    WHERE project_users.user_id IS NULL
+    ORDER BY users.name ASC;
+    `,
+    values: [id],
+  };
+
+  return connection.query(query);
+};
+
 const emailExistsQuery = (email:string) => {
   const query:Query = {
     text: 'SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)',
@@ -47,4 +63,5 @@ export {
   getUserDataQuery,
   emailExistsQuery,
   deleteAccountQuery,
+  getAllUserQuery,
 };

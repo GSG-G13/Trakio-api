@@ -1,5 +1,6 @@
 import bcrypt, { compare } from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
+import { QueryResult } from 'pg';
 import {
   signupQuery,
   getUserDataQuery,
@@ -10,6 +11,7 @@ import {
   CustomError, signToken, signupSchema, loginSchema,
 } from '../helpers';
 import { TokenRequest, userData, joiInterface } from '../interfaces';
+import { getAllUserQuery } from '../database/query';
 
 const signupController = (req: Request, res: Response, next: NextFunction): void => {
   const {
@@ -108,10 +110,23 @@ const getUserDataController = (req: TokenRequest, res:Response) => {
   })
 }
 
+const getAllUserController = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const projectId = Number(req.params.id);
+
+  getAllUserQuery(projectId)
+    .then((data: QueryResult) => {
+      res.status(200).json({
+        message: 'Fetch All Users Successfully',
+        data: data.rows,
+      });
+    })
+    .catch(() => next(new CustomError(500, 'Server Error')));
+};
 export {
   signupController,
   loginController,
   logoutController,
   deleteAccountController,
   getUserDataController,
+  getAllUserController,
 };
