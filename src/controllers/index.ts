@@ -19,6 +19,7 @@ import {
   getTasksByProjectAndSection,
   editTaskController,
   deleteTaskByIdController,
+  editSectionController,
 } from './task';
 import getSectionsController from './section';
 import {
@@ -51,4 +52,5 @@ export {
   addMember,
   getAllUserController,
   getPrioritiesController,
+  editSectionController,
 };

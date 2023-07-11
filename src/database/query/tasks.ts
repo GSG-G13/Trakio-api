@@ -72,14 +72,14 @@ const editTaskQuery = (task: TaskInterface) => {
   return connection.query(sql);
 };
 
-const editSectionQuery = (task: TaskInterface) => {
+const editSectionQuery = ({ id, destinationSection }: {id: number, destinationSection: number}) => {
   const sql = {
     text: `UPDATE tasks
             SET section_id =$2
-            WHERE id = $1;`,
+            WHERE id = $1 RETURNING *;`,
     values: [
-      task.id,
-      task.sectionId,
+      id,
+      destinationSection,
     ],
   };
   return connection.query(sql);

@@ -6,6 +6,7 @@ import {
   getTasksByProjectAndSection,
   editTaskController,
   deleteTaskByIdController,
+  editSectionController,
 } from '../controllers';
 
 const taskRouter: Router = express.Router();
@@ -15,5 +16,5 @@ taskRouter.get('/tasks', checkAuth, getTasksController);
 taskRouter.get('/project/:id/task', checkAuth, checkMember, getTasksByProjectAndSection);
 taskRouter.put('/project/:id/task', checkAuth, checkMember, checkManager, editTaskController); // it has taskId in the query
 taskRouter.delete('/project/:id/task', checkAuth, checkMember, checkManager, deleteTaskByIdController); // it has taskId in the query
-
+taskRouter.put('/project/:id/task/:taskId', checkAuth, checkMember, editSectionController)
 export default taskRouter;
