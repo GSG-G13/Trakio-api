@@ -6,6 +6,7 @@ import {
   getProjectsQuery,
   getProjectByProjectIDQuery,
   deleteProjectByIdQuery,
+  updateProjectByIdQuery,
 } from '../database/query/projects';
 import { TokenRequest, ProjectData, RoleRequest } from '../interfaces';
 import { CustomError } from '../helpers';
@@ -73,9 +74,36 @@ const deleteProjectController = (req: TokenRequest, res: Response, next: NextFun
     });
 };
 
+const updateProjectController = (req: TokenRequest, res: Response, next: NextFunction) => {
+  const projectId = Number(req.params.id);
+  const { title, description } = req.body as ProjectData;
+
+  if (isNaN(projectId)) throw new CustomError(400, 'Bad Request');
+
+  projectSchema.validateAsync({ title, description } as ProjectData)
+    .then(() => updateProjectByIdQuery(projectId, title, description))
+    .then((data: QueryResult) => {
+      if (data.rowCount === 0) {
+        throw new CustomError(404, 'Project not found');
+      }
+      res.status(200).json({
+        message: 'Project updated successfully',
+        data: data.rows,
+      });
+    })
+    .catch((error: Error) => {
+      if (error instanceof CustomError) {
+        next(error);
+      } else {
+        next(new CustomError(500, 'Server Error'));
+      }
+    });
+};
+
 export {
   addProjectController,
   getProjectsController,
   getProjectByProjectIdController,
   deleteProjectController,
+  updateProjectController,
 };
