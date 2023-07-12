@@ -14,7 +14,7 @@ const addAttachmentQuery = (attachS3: string, userId: number, taskId: number, at
 
 const getAttachmentQuery = (projectId: number) => {
   const sql: Query = {
-    text: `SELECT a.id, a.attachment_name, a.attach_s3, t.id AS taskId, t.title, u.id, u.name, u.email
+    text: `SELECT a.id, a.attachment_name, a.attach_s3, t.id AS taskId, t.title, u.id AS user_id, u.name, u.email
             FROM attachments a
             JOIN tasks t
             ON(a.task_id = t.id)
