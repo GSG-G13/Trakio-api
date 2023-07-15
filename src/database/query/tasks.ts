@@ -58,7 +58,7 @@ const getTaskByProjectAndSectionQuery = (projectId: number) => {
 const editTaskQuery = (task: TaskInterface) => {
   const sql = {
     text: `UPDATE tasks SET title = $2, description = $3, project_id = $4,
-          priority_id = $5, section_id = $6, user_id = $7 WHERE id = $1 RETURNING *`,
+          priority_id = $5, section_id = $6, user_id = $7, due_date = $8 WHERE id = $1 RETURNING *`,
     values: [
       task.id,
       task.title,
@@ -67,6 +67,7 @@ const editTaskQuery = (task: TaskInterface) => {
       task.priorityId,
       task.sectionId,
       task.userId,
+      task.dueDate,
     ],
   };
   return connection.query(sql);
