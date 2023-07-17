@@ -76,7 +76,10 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
         email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
       });
     })
-    .then((token) => res.status(200).cookie('token', token).json({
+    .then((token) => res.status(200).cookie('token', token, {
+      secure: false,
+      sameSite: 'none',
+    }).json({
       message: 'Logged In Successfully',
       data: [userInfo],
     }))
