@@ -10,6 +10,7 @@ import {
 import { TokenRequest, TaskInterface, joiInterface } from '../interfaces';
 import { taskSchema, CustomError } from '../helpers';
 import { addProjectUserQuery, checkForMemberInProject } from '../database/query';
+import { editSectionQuery } from '../database/query/tasks';
 
 const addTaskController = (req: Request, res: Response, next: NextFunction) => {
   const projectId = Number(req.params.id);
@@ -47,11 +48,11 @@ const addTaskController = (req: Request, res: Response, next: NextFunction) => {
         taskData,
       ],
     }))
-    .catch((err: CustomError | joiInterface) => {
-      if ('isJoi' in err) {
-        next(new CustomError(406, err.details[0].message));
+    .catch((error: CustomError | joiInterface) => {
+      if ('isJoi' in error) {
+        next(new CustomError(406, error.details[0].message));
       } else {
-        next(err);
+        next(error);
       }
     });
 };
@@ -111,7 +112,7 @@ const editTaskController = (req: TokenRequest, res: Response, next: NextFunction
       message: 'Task Updated Successfully',
       data: data.rows,
     }))
-    .catch((err) => next(err));
+    .catch((error) => next(error));
 };
 
 const deleteTaskByIdController = (req: TokenRequest, res: Response, next: NextFunction) => {
@@ -128,10 +129,24 @@ const deleteTaskByIdController = (req: TokenRequest, res: Response, next: NextFu
     .catch(() => next(new CustomError(500, 'Server Error')));
 };
 
+const editSectionController = ((req: TokenRequest, res: Response, next: NextFunction) => {
+  const { taskId } = req.params;
+  const { destinationSection } = req.body;
+  editSectionQuery({ id: +taskId, destinationSection })
+    .then((task) => {
+      res.status(200).json({
+        message: 'Task Updated Successfully',
+        data: task.rows,
+      });
+    })
+    .catch((error) => next(error))
+});
+
 export {
   addTaskController,
   getTasksController,
   getTasksByProjectAndSection,
   editTaskController,
   deleteTaskByIdController,
+  editSectionController,
 };

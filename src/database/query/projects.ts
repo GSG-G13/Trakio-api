@@ -48,6 +48,14 @@ const deleteProjectByIdQuery = (projectId:number) => {
   };
   return connection.query(query);
 };
+const updateProjectByIdQuery = (projectId: number, title: string, description: string) => {
+  const query: Query = {
+    text: 'UPDATE projects SET title = $1, description = $2 WHERE id = $3 RETURNING *',
+    values: [title, description, projectId],
+  };
+
+  return connection.query(query);
+};
 
 export {
   addProjectQuery,
@@ -55,4 +63,5 @@ export {
   getProjectsQuery,
   getProjectByProjectIDQuery,
   deleteProjectByIdQuery,
+  updateProjectByIdQuery,
 };

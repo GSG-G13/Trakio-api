@@ -23,7 +23,7 @@ const addTaskQuery = ({
 
 const getTasksByUserIdQuery = (userId:number) => {
   const query:Query = {
-    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, pr.priority, pr.color, s.section FROM tasks t 
+    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, p.id AS project_id, pr.priority, pr.color, s.section FROM tasks t 
     JOIN projects p
     ON t.project_id = p.id
     JOIN sections s
@@ -40,7 +40,7 @@ const getTasksByUserIdQuery = (userId:number) => {
 
 const getTaskByProjectAndSectionQuery = (projectId: number) => {
   const query: Query = {
-    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, pr.priority, pr.color, s.section FROM tasks t 
+    text: `SELECT t.id, t.title, t.description, t.created_at, t.due_date, u.id AS user_id, u.name, p.title AS project, p.id AS project_id, pr.priority, pr.color, s.section FROM tasks t 
     JOIN projects p
     ON t.project_id = p.id
     JOIN sections s
@@ -58,7 +58,7 @@ const getTaskByProjectAndSectionQuery = (projectId: number) => {
 const editTaskQuery = (task: TaskInterface) => {
   const sql = {
     text: `UPDATE tasks SET title = $2, description = $3, project_id = $4,
-          priority_id = $5, section_id = $6, user_id = $7 WHERE id = $1 RETURNING *`,
+          priority_id = $5, section_id = $6, user_id = $7, due_date = $8 WHERE id = $1 RETURNING *`,
     values: [
       task.id,
       task.title,
@@ -67,6 +67,20 @@ const editTaskQuery = (task: TaskInterface) => {
       task.priorityId,
       task.sectionId,
       task.userId,
+      task.dueDate,
+    ],
+  };
+  return connection.query(sql);
+};
+
+const editSectionQuery = ({ id, destinationSection }: {id: number, destinationSection: number}) => {
+  const sql = {
+    text: `UPDATE tasks
+            SET section_id =$2
+            WHERE id = $1 RETURNING *;`,
+    values: [
+      id,
+      destinationSection,
     ],
   };
   return connection.query(sql);
@@ -86,4 +100,5 @@ export {
   getTaskByProjectAndSectionQuery,
   editTaskQuery,
   deleteTaskByIdQuery,
+  editSectionQuery,
 };
