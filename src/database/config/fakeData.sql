@@ -59,7 +59,7 @@ INSERT INTO projects (title, description) VALUES (
 
 INSERT INTO roles (role) VALUES ('manager'), ('member');
 INSERT INTO priorities (priority, color) VALUES 
-('hight', '#F8524B'),
+('high', '#F8524B'),
 ('medium', '#FF8800'),
 ('low', '#06C270');
 INSERT INTO project_users (user_id, project_id, role_id) VALUES (

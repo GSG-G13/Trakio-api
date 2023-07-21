@@ -2,12 +2,16 @@ import {
   signupController,
   loginController,
   logoutController,
+  deleteAccountController,
+  getUserDataController,
+  getAllUserController,
 } from './auth';
 import {
   addProjectController,
   getProjectsController,
   getProjectByProjectIdController,
   deleteProjectController,
+  updateProjectController,
 } from './project';
 import {
   addTaskController,
@@ -15,16 +19,19 @@ import {
   getTasksByProjectAndSection,
   editTaskController,
   deleteTaskByIdController,
+  editSectionController,
 } from './task';
 import getSectionsController from './section';
 import {
   addAttachmentController,
   getAttachmentController,
 } from './attachment';
-import getMembersByProjectIdController from './members';
+import { getMembersByProjectIdController, addMember } from './members';
+import getPrioritiesController from './priority';
 
 export {
   signupController,
+  deleteAccountController,
   loginController,
   logoutController,
   addProjectController,
@@ -40,4 +47,10 @@ export {
   addAttachmentController,
   getAttachmentController,
   getMembersByProjectIdController,
+  getUserDataController,
+  updateProjectController,
+  addMember,
+  getAllUserController,
+  getPrioritiesController,
+  editSectionController,
 };
