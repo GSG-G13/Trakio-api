@@ -10,8 +10,8 @@ import {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '142741150441-0frc52jrapsfr6mku7rqs3c3jvjiptuc.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientID: process.env.CLIENT_ID!,
+      clientSecret: process.env.CLIENT_SECRET_KEY!,
       callbackURL: 'http://localhost:3000/auth/callback',
     },
     (
