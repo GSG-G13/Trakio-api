@@ -8,7 +8,6 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import router from './routers';
 import './controllers/googleOAuth';
-import { getUserById } from './database/query';
 
 dotenv.config();
 
@@ -35,18 +34,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-passport.serializeUser((user:any, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id:number, done) => {
-  try {
-    const user = await getUserById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.get(

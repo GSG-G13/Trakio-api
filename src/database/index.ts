@@ -20,9 +20,11 @@ import {
   updateProjectByIdQuery,
   addMemberToProject,
   getPrioritiesQuery,
+  getUserById,
 } from './query';
 
 export {
+  getUserById,
   addProjectQuery,
   deleteAccountQuery,
   addProjectUserQuery,
