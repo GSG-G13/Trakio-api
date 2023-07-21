@@ -8,7 +8,12 @@ import {
   deleteProjectByIdQuery,
   updateProjectByIdQuery,
 } from '../database/query/projects';
-import { TokenRequest, ProjectData, RoleRequest } from '../interfaces';
+import {
+  TokenRequest,
+  ProjectData,
+  RoleRequest,
+  joiInterface,
+} from '../interfaces';
 import { CustomError } from '../helpers';
 import { projectSchema } from '../helpers/validation';
 
