@@ -2,9 +2,7 @@
 
   <p align="center"> Trackio is a website that a collaborative work management app designed to track team projects, highlight tasks underway, show who they are assigned to    
     </p>
-   <p align="center">
-    <a href="">View Demo</a>
-    - 
+   <p align="center"> 
     <a href="https://documenter.getpostman.com/view/18486816/2s93sjV9ZN">Api</a>
   </p>
 </div>
@@ -17,12 +15,12 @@
 > As A Manager
 
 - I can login to my account.
-- I can see visualization the progress of tasks and projects through charts and graphs.
+- I can see a visualization of the progress of tasks and projects through charts and graphs.
 - I can see all the tasks that I have in all projects. 
 - I can create a new project.
-- I can create tasks in the project in the to-do section.
-- I can assign tasks to team members,  set due dates, and upload some attachements.
-- I can change the state of the taks "to-do, doing, review, done".
+- I can create tasks in the project in a specific section.
+- I can assign tasks to team members, set due dates, and upload some attachments.
+- I can change the state of the tasks "to-do, doing, review, done".
 - I can delete any task.
 - I can update team members in the task.
 - I can receive notifications when the state changed by team members.
@@ -42,8 +40,6 @@
 - I can see my tasks in a specific project in calendar mode.
 - I can attach files or relevant documents to tasks.
 - I can update the status of my tasks "to-do, doing, review, done".
-- I can receive notifications when new tasks are assigned to me.
-- I can search and filter tasks based on various criteria such as due date, priority, or assigned team member.
 - I can logout from the website.
 - I can delete my account.
 
@@ -52,11 +48,7 @@
 
 <hr>
 
-## ✧ Link
 
-Demo link in [heroku](), feel free to check it 🤍
-
-<hr>
 
 ## ✧ Built With
 
@@ -65,13 +57,7 @@ Demo link in [heroku](), feel free to check it 🤍
 - Express.js
 - Postgressql
 - Upload files >> S3
-- AWS EC2
-- React.js
-- Formik
-- React-beautiful-dnd
-- Styled Component
-- Material-ui "mui => library"
-- Socket.io
+- AWS S3
 - Jest For Test
 
 <hr>
@@ -86,7 +72,7 @@ Demo link in [heroku](), feel free to check it 🤍
 
 To get a local copy up and running, follow these simple steps:
 
-git clone  https://github.com/GSG-G13/trakio
+git clone  https://github.com/GSG-G13/trakio-api
 
 code trackio
 
@@ -115,7 +101,7 @@ Clone the Project
 ## ✧ Contact
 
 > ### Contributors
-- [Khaled Toha](https://github.com/KhaledToha)
+- [Khaled Abu Toha](https://github.com/KhaledToha)
 - [Aya Aljalees](https://github.com/AyaAljalees)
 - [Amal Alssatari](https://github.com/Amal-Mousa)
 - [Mohammed Sbeata](https://github.com/Mohammed-Sbeata)
@@ -127,8 +113,4 @@ Clone the Project
 
 ## ✧ Acknowledgments
 
-- [React Icons](https://react-icons.github.io/react-icons/search)
-- [Socket](https://socket.io/)
-- [AWS EC-2](https://aws.amazon.com/ar/ec2/)
-- [Formik](https://formik.org/)
-- [React-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+- [AWS S3](https://aws.amazon.com/ar/ec2/)
