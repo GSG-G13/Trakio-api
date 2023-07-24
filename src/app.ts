@@ -3,12 +3,12 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import router from './routers';
 
 process.env.Node_ENV === 'development' && dotenv.config()
 
-const app:Express = express();
+const app: Express = express();
 
 app.use([
   express.json(),
