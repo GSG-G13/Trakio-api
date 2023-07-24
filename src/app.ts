@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import express, { Express } from 'express';
 import cors from 'cors';
-import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import router from './routers';
@@ -20,7 +19,6 @@ app.use([
   cookieParser(),
 ]);
 
-process.env.Node_ENV === 'development' && app.use(morgan('dev'));
 app.use('/api', router);
 
 export default app;
