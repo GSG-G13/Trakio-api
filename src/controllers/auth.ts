@@ -39,7 +39,11 @@ const signupController = (req: Request, res: Response, next: NextFunction): void
     })))
     .then((data) => data.rows[0])
     .then((row) => signToken(row))
-    .then((token) => res.status(201).cookie('token', token).json({
+    .then((token) => res.status(201).cookie('token', token, {
+      secure: true,
+      sameSite: 'none',
+      httpOnly: true,
+    }).json({
       message: 'Created successfully',
       data: [{ name, email, phone }],
     }))
@@ -76,7 +80,11 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
         email, id: userInfo.id, name: userInfo.name, phone: userInfo.phone,
       });
     })
-    .then((token) => res.status(200).cookie('token', token).json({
+    .then((token) => res.status(200).cookie('token', token, {
+      secure: true,
+      sameSite: 'none',
+      httpOnly: true,
+    }).json({
       message: 'Logged In Successfully',
       data: [userInfo],
     }))
@@ -90,7 +98,11 @@ const loginController = (req: TokenRequest, res: Response, next: NextFunction) =
 };
 
 const logoutController = (req: Request, res: Response) => {
-  res.clearCookie('token').json({ message: 'Logged Out Successfully' });
+  res.clearCookie('token', {
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true,
+  }).json({ message: 'Logged Out Successfully' });
 };
 
 const deleteAccountController = (req: TokenRequest, res: Response, next: NextFunction): void => {
@@ -122,6 +134,7 @@ const getAllUserController = (req: TokenRequest, res: Response, next: NextFuncti
     })
     .catch(() => next(new CustomError(500, 'Server Error')));
 };
+
 export {
   signupController,
   loginController,
