@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p .",
-    "start": "npm run build && node dist/src/index.js",
+    "build": "rimraf ./build && tsc",
+    "start": "node dist/src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prepare": "husky install"
+  },
+  "engines": {
+    "node": "18.16.1",
+    "npm": "9.8.1"
   },
   "author": "",
   "license": "ISC",
