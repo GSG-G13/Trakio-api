@@ -23,8 +23,6 @@
 - I can change the state of the tasks "to-do, doing, review, done".
 - I can delete any task.
 - I can update team members in the task.
-- I can receive notifications when the state changed by team members.
-- I can search and filter tasks based on various criteria such as due date, priority, or assigned team member.
 - I can logout from the website.
 - I can delete my account.
 
