@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-expressions */
 import { Pool, PoolConfig } from 'pg';
 import dotenv from 'dotenv';
 
-dotenv.config();
+process.env.NODE_ENV !== 'production' && dotenv.config();
 
 const db: string = process.env.NODE_ENV === 'production' ? process.env.DB_URL! : process.env.DB_URL!
 

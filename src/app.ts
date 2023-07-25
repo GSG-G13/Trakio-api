@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 import router from './routers';
 import './controllers/googleOAuth';
 
-dotenv.config();
+process.env.Node_ENV === 'development' && dotenv.config()
 
 const app: Express = express();
 
@@ -17,7 +17,7 @@ app.use([
   express.json(),
   express.urlencoded({ extended: false }),
   cors({
-    origin: process.env.BASE_URL,
+    origin: true,
     credentials: true,
   }),
   cookieParser(),
