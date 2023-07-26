@@ -19,6 +19,7 @@ import {
   getAllUserQuery,
   emailExistsQuery,
   deleteAccountQuery,
+  getUserById,
 } from './user';
 import getSectionsQuery from './section';
 import getPrioritiesQuery from './priority';
@@ -26,6 +27,7 @@ import { getAttachmentQuery, addAttachmentQuery } from './attachment';
 import { getMembersByProjectQuery, checkForMemberInProject, addMemberToProject } from './members';
 
 export {
+  getUserById,
   addProjectQuery,
   deleteAccountQuery,
   getAllUserQuery,
