@@ -2,7 +2,6 @@
 import express, { Express } from 'express';
 import passport from 'passport';
 import cors from 'cors';
-import morgan from 'morgan';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -22,7 +21,6 @@ app.use([
   }),
   cookieParser(),
 ]);
-process.env.Node_ENV === 'development' && app.use(morgan('dev'));
 app.use(
   session({
     secret: '12345',
