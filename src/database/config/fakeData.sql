@@ -80,6 +80,9 @@ INSERT INTO project_users (user_id, project_id, role_id) VALUES (
 INSERT INTO project_users (user_id, project_id, role_id) VALUES (
     7, 2, 2
 );
+INSERT INTO project_users (user_id, project_id, role_id) VALUES (
+    3, 2, 1
+);
 INSERT INTO sections (section) VALUES ('To-Do'), ('Doing'), ('Reviewing'), ('Done');
 INSERT INTO tasks (title,description,created_at,due_date,user_id,project_id,priority_id,section_id) VALUES 
 ('add query tasks', 'add tasks', '2023-07-2', '2023-07-2',3,2,1,1);

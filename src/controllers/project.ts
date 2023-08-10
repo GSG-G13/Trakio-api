@@ -8,7 +8,12 @@ import {
   deleteProjectByIdQuery,
   updateProjectByIdQuery,
 } from '../database/query/projects';
-import { TokenRequest, ProjectData, RoleRequest } from '../interfaces';
+import {
+  TokenRequest,
+  ProjectData,
+  RoleRequest,
+  joiInterface,
+} from '../interfaces';
 import { CustomError } from '../helpers';
 import { projectSchema } from '../helpers/validation';
 
@@ -29,7 +34,13 @@ const addProjectController = (req: TokenRequest, res: Response, next: NextFuncti
         data: [project],
       })
     })
-    .catch(() => next(new CustomError(500, 'server Error')));
+    .catch((err: CustomError | joiInterface) => {
+      if ('isJoi' in err) {
+        next(new CustomError(406, err.details[0].message));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const getProjectsController = (req: TokenRequest, res: Response, next: NextFunction) => {
